@@ -106,10 +106,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="RestrationPage.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestrationPage.aspx.cs">
+      <DependentUpon>RestrationPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RestrationPage.aspx.designer.cs">
+      <DependentUpon>RestrationPage.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
