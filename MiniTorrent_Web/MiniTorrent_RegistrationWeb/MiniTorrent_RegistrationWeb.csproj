@@ -119,6 +119,12 @@
       <DependentUpon>RestrationPage.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DatabaseHelper\DatabaseHelper.csproj">
+      <Project>{d777b6e3-1b4b-4be5-ad21-61945a3c88e5}</Project>
+      <Name>DatabaseHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

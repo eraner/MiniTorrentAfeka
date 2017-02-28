@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniTorrent_RegistrationWeb", "MiniTorrent_RegistrationWeb\MiniTorrent_RegistrationWeb.csproj", "{16609FEF-46B1-440E-84BC-9EE6C4C448CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseHelper", "DatabaseHelper\DatabaseHelper.csproj", "{D777B6E3-1B4B-4BE5-AD21-61945A3C88E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{16609FEF-46B1-440E-84BC-9EE6C4C448CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16609FEF-46B1-440E-84BC-9EE6C4C448CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16609FEF-46B1-440E-84BC-9EE6C4C448CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D777B6E3-1B4B-4BE5-AD21-61945A3C88E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D777B6E3-1B4B-4BE5-AD21-61945A3C88E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D777B6E3-1B4B-4BE5-AD21-61945A3C88E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D777B6E3-1B4B-4BE5-AD21-61945A3C88E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

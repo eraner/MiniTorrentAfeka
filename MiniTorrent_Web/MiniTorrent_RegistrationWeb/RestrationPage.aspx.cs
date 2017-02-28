@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DatabaseHelper;
 
 namespace MiniTorrent_RegistrationWeb
 {
@@ -23,6 +24,9 @@ namespace MiniTorrent_RegistrationWeb
             SubmitButton.Text = "Clicked";
 
             //Check that the user name is not taken already.
+            DBHelper helper = new DBHelper();
+            List<string> existingUsers = helper.GetUsernameValues();
+
 
             string pattern = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$";
             if (!Regex.IsMatch(password, pattern))
