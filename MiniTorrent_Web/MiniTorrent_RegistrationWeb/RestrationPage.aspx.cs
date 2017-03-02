@@ -27,6 +27,7 @@ namespace MiniTorrent_RegistrationWeb
             DBHelper helper = new DBHelper();
             List<string> existingUsers = helper.GetUsernameValues();
 
+            UsersLabel.Text = existingUsers.First();
 
             string pattern = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$";
             if (!Regex.IsMatch(password, pattern))
@@ -35,7 +36,7 @@ namespace MiniTorrent_RegistrationWeb
                 return;
             }
 
-
+            SubmitButton.Text = "Clicked";
         }
     }
 }
