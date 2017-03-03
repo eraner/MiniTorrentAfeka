@@ -23,13 +23,13 @@ namespace MiniTorrent_RegistrationWeb
             string password = PasswordTextBox.Text.ToString();
             string confirmPassword = ConfirmPasswordTextBox.Text.ToString();
 
-            //List<string> existingUsers = helper.GetUsernameValues();
-            //if (existingUsers.Exists(name => name == username))
-            //{
-            //    //Username exists.
-            //    writeErrorToLabel("Usernmae already exists.");
-            //    return;
-            //}
+            List<string> existingUsers = helper.GetUsernameValues();
+            if (existingUsers.Exists(name => name == username))
+            {
+                //Username exists.
+                writeErrorToLabel("Usernmae already exists.");
+                return;
+            }
 
             string pattern = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$";
             if (!Regex.IsMatch(password, pattern))
@@ -43,11 +43,11 @@ namespace MiniTorrent_RegistrationWeb
                 return;
             }
 
-            //if (!helper.InsertNewUser(username, password))
-            //{
-            //    writeErrorToLabel("Could not create new user.");
-            //    return;
-            //}
+            if (!helper.InsertNewUser(username, password))
+            {
+                writeErrorToLabel("Could not create new user.");
+                return;
+            }
 
             Response.Redirect("RegistrationCompletedPage.aspx");
         }

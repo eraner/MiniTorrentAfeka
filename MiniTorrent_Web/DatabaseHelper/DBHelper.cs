@@ -34,7 +34,22 @@ namespace DatabaseHelper
 
         public bool InsertNewUser(string username, string password)
         {
-            throw new NotImplementedException();
+            User u = new User
+            {
+                Username = username,
+                Password = password
+            };
+
+            linq_DB.Users.InsertOnSubmit(u);
+            try
+            {
+                linq_DB.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
