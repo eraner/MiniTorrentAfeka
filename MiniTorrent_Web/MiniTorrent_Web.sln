@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniTorrent_RegistrationWeb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseHelper", "DatabaseHelper\DatabaseHelper.csproj", "{D777B6E3-1B4B-4BE5-AD21-61945A3C88E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniTorrent_MediationServerContract", "MiniTorrent_MediationServerContract\MiniTorrent_MediationServerContract.csproj", "{324AB4AF-CDA0-4477-8428-E378902D2045}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfMediationService", "WcfMediationService\WcfMediationService.csproj", "{1269E896-0F78-46EE-9D6F-ECCB73189914}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{D777B6E3-1B4B-4BE5-AD21-61945A3C88E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D777B6E3-1B4B-4BE5-AD21-61945A3C88E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D777B6E3-1B4B-4BE5-AD21-61945A3C88E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{324AB4AF-CDA0-4477-8428-E378902D2045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{324AB4AF-CDA0-4477-8428-E378902D2045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{324AB4AF-CDA0-4477-8428-E378902D2045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{324AB4AF-CDA0-4477-8428-E378902D2045}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1269E896-0F78-46EE-9D6F-ECCB73189914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1269E896-0F78-46EE-9D6F-ECCB73189914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1269E896-0F78-46EE-9D6F-ECCB73189914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1269E896-0F78-46EE-9D6F-ECCB73189914}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

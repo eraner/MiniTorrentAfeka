@@ -11,9 +11,10 @@ namespace MiniTorrent_RegistrationWeb
 {
     public partial class RestrationPage : System.Web.UI.Page
     {
+        private DBHelper helper;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            helper = new DBHelper();
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)
@@ -21,22 +22,39 @@ namespace MiniTorrent_RegistrationWeb
             string username = UsernameTextBox.Text.ToString();
             string password = PasswordTextBox.Text.ToString();
             string confirmPassword = ConfirmPasswordTextBox.Text.ToString();
-            SubmitButton.Text = "Clicked";
 
-            //Check that the user name is not taken already.
-            DBHelper helper = new DBHelper();
-            List<string> existingUsers = helper.GetUsernameValues();
-
-            UsersLabel.Text = existingUsers.First();
+            //List<string> existingUsers = helper.GetUsernameValues();
+            //if (existingUsers.Exists(name => name == username))
+            //{
+            //    //Username exists.
+            //    writeErrorToLabel("Usernmae already exists.");
+            //    return;
+            //}
 
             string pattern = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$";
             if (!Regex.IsMatch(password, pattern))
             {
-                // Do something.
+                writeErrorToLabel("Password should contain minimum 6 characters, at least one letter and one number.");
+                return;
+            }
+            if (!string.Equals(password, confirmPassword))
+            {
+                writeErrorToLabel("Passwords fields do not match.");
                 return;
             }
 
-            SubmitButton.Text = "Clicked";
+            //if (!helper.InsertNewUser(username, password))
+            //{
+            //    writeErrorToLabel("Could not create new user.");
+            //    return;
+            //}
+
+            Response.Redirect("RegistrationCompletedPage.aspx");
+        }
+
+        private void writeErrorToLabel(string message)
+        {
+            InternalErrorLabel.Text = message;
         }
     }
 }

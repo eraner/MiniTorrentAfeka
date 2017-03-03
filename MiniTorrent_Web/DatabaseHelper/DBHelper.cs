@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace DatabaseHelper
 {
-    public class DBHelper
+    public class DBHelper : IDBConnection
     {
         private LinqToDBDataContext linq_DB;
 
@@ -16,7 +16,6 @@ namespace DatabaseHelper
         public DBHelper()
         {
             linq_DB = new LinqToDBDataContext();
-            
         }
 
         public List<string> GetUsernameValues()
@@ -31,6 +30,11 @@ namespace DatabaseHelper
             }
            
             return usernameValues;
+        }
+
+        public bool InsertNewUser(string username, string password)
+        {
+            throw new NotImplementedException();
         }
     }
 }

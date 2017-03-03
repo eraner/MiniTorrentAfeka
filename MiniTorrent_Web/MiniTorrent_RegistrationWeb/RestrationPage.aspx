@@ -29,7 +29,7 @@
     
         <br />
         <br />
-        <asp:Label ID="UsersLabel" runat="server" Text=""></asp:Label>
+        <asp:Label ID="InternalErrorLabel" runat="server" Font-Bold="True" ForeColor="Red"></asp:Label>
 
     
         <br />
