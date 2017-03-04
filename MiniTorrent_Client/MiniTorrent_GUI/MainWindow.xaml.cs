@@ -20,9 +20,17 @@ namespace MiniTorrent_GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MediationReference.MediationServerContractClient client;
         public MainWindow()
         {
             InitializeComponent();
+            client = new MediationReference.MediationServerContractClient();
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            label1.Content = client.GetName();
         }
     }
 }
