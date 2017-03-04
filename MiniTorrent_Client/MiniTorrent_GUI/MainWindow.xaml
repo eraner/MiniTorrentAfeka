@@ -5,10 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MiniTorrent_GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Configuration Window" Height="350" Width="525" ResizeMode="NoResize" Background="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="231,146,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="253,83,0,0" VerticalAlignment="Top" Name="label1"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="236*"/>
+            <ColumnDefinition Width="281*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="ConnectButton" Content="Connect" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="75" Margin="0,0,10,10" Click="Connect_Click" Grid.Column="1" Height="20"/>
+        <Label x:Name="ServerIPLabel" Content="Server IP Address:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18.667" Margin="10,0,0,0" Grid.Column="0" Height="35" Width="157"/>
+        <TextBox x:Name="ServerIpAddressTextbox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="0,4,0,0" TextWrapping="Wrap" Text="localhost" VerticalAlignment="Top" Width="238" RenderTransformOrigin="0.061,0.214" FontSize="18.667" TextAlignment="Center"/>
+        <Label x:Name="IncomingTcpPortLabel" Content="Incoming Tcp Port:" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" FontSize="18.667" Height="35" Width="163"/>
+        <TextBox x:Name="IncomingTcpPortTextbox" HorizontalAlignment="Left" Height="23" Margin="0,39,0,0" TextWrapping="Wrap" Text="8005" VerticalAlignment="Top" Width="238" RenderTransformOrigin="0.061,0.214" FontSize="18.667" Grid.Column="1" TextAlignment="Center"/>
+        <Label x:Name="OutgoingTcpPortLabel" Content="Outgoing Tcp Port:" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" FontSize="18.667" Height="35" Width="164"/>
+        <TextBox x:Name="OutgoingTcpPortTextbox" HorizontalAlignment="Left" Height="23" Margin="0,74,0,0" TextWrapping="Wrap" Text="8006" VerticalAlignment="Top" Width="238" RenderTransformOrigin="0.061,0.214" FontSize="18.667" Grid.Column="1" TextAlignment="Center"/>
+        <Label x:Name="UsernameLabel" Content="Username:" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top" FontSize="18.667" Height="35" Width="97"/>
+        <TextBox x:Name="UsernameTextbox" HorizontalAlignment="Left" Height="23" Margin="0,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" RenderTransformOrigin="0.061,0.214" FontSize="18.667" Grid.Column="1" TextAlignment="Center"/>
+        <Label x:Name="PasswordLabel" Content="Password:" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" FontSize="18.667" Height="35" Width="91"/>
+        <TextBox x:Name="PasswordTextbox" HorizontalAlignment="Left" Height="23" Margin="0,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" RenderTransformOrigin="0.061,0.214" FontSize="18.667" Grid.Column="1" TextAlignment="Center"/>
+        <Label x:Name="PublishedFilesSourceLabel" Content="Published Files Source:" HorizontalAlignment="Left" Margin="10,175,0,0" VerticalAlignment="Top" FontSize="18.667" Height="35" Width="196"/>
+        <TextBox x:Name="PublishedFilesSourceTextbox" HorizontalAlignment="Left" Height="23" Margin="0,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" RenderTransformOrigin="0.061,0.214" FontSize="18.667" Grid.Column="1" TextAlignment="Center" Text="D:\MiniTorrent"/>
+        <Label x:Name="DownloadedFilesDestLabel" Content="Downloaded Files Dest.:" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" FontSize="18.667" Height="35" Width="216"/>
+        <TextBox x:Name="DownloadedFilesDestTextbox" HorizontalAlignment="Left" Height="23" Margin="0,214,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" RenderTransformOrigin="0.061,0.214" FontSize="18.667" Grid.Column="1" TextAlignment="Center" Text="D:\MiniTorrent_Downloaded"/>
+        
+        <CheckBox x:Name="PreDefinedConfigCheckBox" Content="Use Pre-Defined MyConfig.xml file" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Checked="checkBox_Changed" Unchecked="checkBox_Changed"/>
 
     </Grid>
 </Window>
