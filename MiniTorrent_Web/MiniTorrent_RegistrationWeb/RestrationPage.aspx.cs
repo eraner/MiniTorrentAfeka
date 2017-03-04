@@ -43,7 +43,7 @@ namespace MiniTorrent_RegistrationWeb
                 return;
             }
 
-            if (!helper.InsertNewUser(username, password))
+            if (!helper.SignUpNewUser(username, password))
             {
                 writeErrorToLabel("Could not create new user.");
                 return;

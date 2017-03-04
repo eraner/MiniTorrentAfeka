@@ -3,40 +3,91 @@ using System.Collections.Generic;
 using MiniTorrent_MediationServerContract;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using DatabaseHelper;
+using Newtonsoft.Json;
+
 
 namespace WcfMediationService
 {
     public class MediationService : IMediationServerContract
     {
+        DBHelper dbHelper;
+
+        public bool signin(string jsonString)
+        {
+            JsonItems items = JsonConvert.DeserializeObject<JsonItems>(jsonString);
+            dbHelper = new DBHelper();
+
+            string username = items.Username;
+            string password = items.Password;
+            if (!Authenticate(username, password))
+                return false;
+
+            try
+            {
+                /*setting params for database*/
+                List<FileInfo> userFiles = items.AllFiles;
+                string ip = items.Ip;
+                string port = items.Port;
+
+                /*adding user and files to the database.*/
+                dbHelper.SignInUser(username, ip, port);
+                foreach (FileInfo file in userFiles)
+                {
+                    dbHelper.AddFiles(file.name, file.size, ip);
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+            //NOTIFY OTHER CLIENTS FOR A CHANGE!!
+            
+            return true;
+        }
+
         public bool Authenticate(string username, string password)
         {
-            throw new NotImplementedException();
+            if (dbHelper == null)
+                new DBHelper();
+
+            return dbHelper.ContainsUsernamePassword(username, password);
         }
 
-        public List<string> GetFilesNamesList()
+
+        public string RequestAFile(string jsonString)
         {
-            throw new NotImplementedException();
-        }
+            JsonItems items = JsonConvert.DeserializeObject<JsonItems>(jsonString);
+            if (dbHelper == null)
+                new DBHelper();
 
-        public string GetName()
-        {
-            return getConnectedClientIP();
-        }
+            if (!Authenticate(items.Username, items.Password))
+                return string.Empty;
 
-        public void PostOwnedFilesNamesList(List<string> filesnames)
-        {
-            throw new NotImplementedException();
-        }
+            if (items.AllFiles.Count != 1)
+                return string.Empty;
 
-        private string getConnectedClientIP()
-        {
-            OperationContext context = OperationContext.Current;
-            MessageProperties prop = context.IncomingMessageProperties;
-            RemoteEndpointMessageProperty endpoint =
-                prop[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
-            string ip = endpoint.Address;
+            FileInfo file = items.AllFiles[0];
+            if (!dbHelper.ContainsFile(file.name))
+                return string.Empty;
 
-            return ip;
+            return "";
         }
+    }
+
+    public class JsonItems
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Ip { get; set; }
+        public string Port { get; set; }
+        public List<FileInfo> AllFiles { get; set; }
+    }
+
+    public class FileInfo
+    {
+        public string name { get; set; }
+        public float size { get; set; }
     }
 }

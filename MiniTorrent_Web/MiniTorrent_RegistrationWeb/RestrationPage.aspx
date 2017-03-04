@@ -37,10 +37,10 @@
 
             <asp:TableRow>
                 <asp:TableCell>
-            <asp:Label ID="Label1" runat="server" Text="Confirm Password: "></asp:Label>
+            <asp:Label ID="ConfirmPasswordLabel" runat="server" Text="Confirm Password: "></asp:Label>
                 </asp:TableCell>
                 <asp:TableCell>
-        <asp:TextBox ID="TextBox1" runat="server" />
+        <asp:TextBox ID="ConfirmPasswordTextBox" runat="server" />
                 </asp:TableCell>
                 <asp:TableCell>
         <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="Passwords fields do not match." Font-Italic="False" ControlToCompare="PasswordTextBox" ControlToValidate="ConfirmPasswordTextBox"></asp:CompareValidator>
