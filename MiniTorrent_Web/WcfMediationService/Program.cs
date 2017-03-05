@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ServiceModel;
-using MiniTorrent_MediationServerContract;
 
 namespace WcfMediationService
 {

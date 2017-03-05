@@ -106,10 +106,10 @@ namespace DatabaseHelper
             List<FileDetails> filesDetailsList = new List<FileDetails>();
 
             var files = (from file in linq_DB.Files
-                            select file).GroupBy(key => key.name);
-            foreach (File file in files)
+                         select file.name).Distinct();
+            foreach (string name in files)
             {
-                filesDetailsList.Add(GetFileInfo(file.name));
+                filesDetailsList.Add(GetFileInfo(name));
             }
             return filesDetailsList;
         }
@@ -134,12 +134,14 @@ namespace DatabaseHelper
         public bool SignoutUser(string username)
         {
 
-            var userToDelete = (from user in linq_DB.Signins
+            var query = (from user in linq_DB.Signins
                                 where user.username == username
-                                select user).First();
-            if (userToDelete == null)
+                                select user);
+            
+            if (query.Count() == 0)
                 return false;
 
+            var userToDelete = query.First();
             linq_DB.Signins.DeleteOnSubmit(userToDelete);
 
             try

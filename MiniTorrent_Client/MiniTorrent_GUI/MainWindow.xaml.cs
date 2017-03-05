@@ -84,10 +84,19 @@ namespace MiniTorrent_GUI
 
             if (!validateConfigFile())
                 return;
-            if (!ConnectToServer())
-                return;
 
-            TorrentWindow torrentWin = new TorrentWindow(connectionDetails);
+            try
+            {
+                if (!ConnectToServer())
+                    return;
+            }
+            catch (System.ServiceModel.EndpointNotFoundException)
+            {
+                MessageBox.Show("Failed to communicate with the server,\nPlease validate that the service is up.","Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            TorrentWindow torrentWin = new TorrentWindow(client, connectionDetails, localIp);
             torrentWin.Show();
             this.Close();
         }
@@ -99,16 +108,16 @@ namespace MiniTorrent_GUI
             {
                 Username = connectionDetails.Username,
                 Password = connectionDetails.Password,
-                Ip = connectionDetails.ServerIpAddress,
+                Ip = localIp,
                 Port = connectionDetails.IncomingTcpPort.ToString(),
                 AllFiles = filesList
             };
             string toSend = JsonConvert.SerializeObject(jsonItems);
 
-            return client.signin(toSend);
+            return client.SingIn(toSend);
         }
 
-        private List<FileDetails> getFilesList(string source)
+        public static  List<FileDetails> getFilesList(string source)
         {
             List<FileDetails> filesList = new List<FileDetails>();
 
@@ -135,7 +144,7 @@ namespace MiniTorrent_GUI
             return filesList;
         }
 
-        private FileDetails getFileDetailes(string path)
+        public static FileDetails getFileDetailes(string path)
         {
             FileDetails file = new FileDetails();
             if (!File.Exists(path))
