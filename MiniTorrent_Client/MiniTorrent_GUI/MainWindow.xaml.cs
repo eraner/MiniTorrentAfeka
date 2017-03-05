@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.IO;
 using System.Xml;
-using System.Xml.Linq;
+using MiniTorrent_MediationServerContract;
+using Newtonsoft.Json;
+using System.Net;
+using System.Net.Sockets;
 
 namespace MiniTorrent_GUI
 {
@@ -22,6 +15,7 @@ namespace MiniTorrent_GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Constants
         public const string CONFIG_FILE_NAME = "MyConfig.xml";
         public const string MINI_TORRENT_PARAMS = "MiniTorrentParams";
         public const string SERVER_IP_ADDRESS = "ServerIpAddress";
@@ -31,17 +25,19 @@ namespace MiniTorrent_GUI
         public const string PASSWORD = "Password";
         public const string SOURCE_DIR = "PublishedFilesSource";
         public const string DEST_DIR = "DownloadedFilesDestination";
-
+        private const long ONE_KB = 1024;
+        private const long ONE_MB = ONE_KB * 1024;
+        #endregion
 
         private MediationReference.MediationServerContractClient client;
         private ConnectionDetails connectionDetails;
+        private string localIp;
 
         public MainWindow()
         {
             InitializeComponent();
             client = new MediationReference.MediationServerContractClient();
-
-            //validateConfigFile();
+            localIp = GetLocalIPAddress();
         }
 
         private bool validateConfigFile()
@@ -74,7 +70,7 @@ namespace MiniTorrent_GUI
                         "< Password > password1 </ Password >\n" +
                         "< PublishedFilesSource > D:\\UTorrent </ PublishedFilesSource >\n" +
                         "< DownloadedFilesDestination > D:\\MiniTorrent_Downloaded </ DownloadedFilesDestination >\n" +
-                        "</ MiniTorrentParams >","Invalid MyConfig.xml File",MessageBoxButton.OK, MessageBoxImage.Error);
+                        "</ MiniTorrentParams >", "Invalid MyConfig.xml File",MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             return true;
@@ -86,10 +82,71 @@ namespace MiniTorrent_GUI
             if (!PreDefinedConfigCheckBox.IsChecked.Value)
                 updateConfigFile();
 
-            if (validateConfigFile())
-            {
+            if (!validateConfigFile())
+                return;
+            if (!ConnectToServer())
+                return;
 
+            TorrentWindow torrentWin = new TorrentWindow(connectionDetails);
+            torrentWin.Show();
+            this.Close();
+        }
+
+        private bool ConnectToServer()
+        {
+            List<FileDetails> filesList = getFilesList(connectionDetails.PublishedFilesSource);
+            JsonItems jsonItems = new JsonItems
+            {
+                Username = connectionDetails.Username,
+                Password = connectionDetails.Password,
+                Ip = connectionDetails.ServerIpAddress,
+                Port = connectionDetails.IncomingTcpPort.ToString(),
+                AllFiles = filesList
+            };
+            string toSend = JsonConvert.SerializeObject(jsonItems);
+
+            return client.signin(toSend);
+        }
+
+        private List<FileDetails> getFilesList(string source)
+        {
+            List<FileDetails> filesList = new List<FileDetails>();
+
+            if (!Directory.Exists(source))
+            {
+                //No files to publish returning empty list.
+                return filesList;
             }
+
+            string[] filesPaths = Directory.GetFiles(source);
+            foreach (string file in filesPaths)
+            {
+                FileDetails curr = getFileDetailes(file);
+                if (curr != null)
+                    filesList.Add(curr);
+            }
+
+            string[] subDirs = Directory.GetDirectories(source);
+            foreach (string dir in subDirs)
+            {
+                filesList.AddRange(getFilesList(dir));
+            }
+
+            return filesList;
+        }
+
+        private FileDetails getFileDetailes(string path)
+        {
+            FileDetails file = new FileDetails();
+            if (!File.Exists(path))
+                return null;
+
+            long sizeInBytes = new FileInfo(path).Length;
+            file.Size = ((float)sizeInBytes) / ONE_MB;
+            file.Name= System.IO.Path.GetFileName(path);
+            file.Count = -1;
+
+            return file;
         }
 
         private void updateConfigFile()
@@ -120,6 +177,19 @@ namespace MiniTorrent_GUI
             PasswordTextbox.IsEnabled = !check;
             PublishedFilesSourceTextbox.IsEnabled = !check;
             DownloadedFilesDestTextbox.IsEnabled = !check;
+        }
+
+        public string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("Local IP Address Not Found!");
         }
     }
 }

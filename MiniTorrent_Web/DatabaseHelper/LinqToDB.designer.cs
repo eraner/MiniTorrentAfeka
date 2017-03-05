@@ -42,7 +42,7 @@ namespace DatabaseHelper
     #endregion
 		
 		public LinqToDBDataContext() : 
-				base(global::DatabaseHelper.Properties.Settings.Default.C__USERS_ELAUDIN_DOCUMENTS_MINITORRENT_DB_MDFConnectionString, mappingSource)
+				base(global::DatabaseHelper.Properties.Settings.Default.MiniTorrent_DBConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

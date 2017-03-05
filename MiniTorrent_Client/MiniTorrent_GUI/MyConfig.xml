@@ -3,8 +3,8 @@
   <ServerIpAddress>localhost</ServerIpAddress>
   <IncomingTcpPort>8005</IncomingTcpPort>
   <OutgoingTcpPort>8006</OutgoingTcpPort>
-  <Username>Usename1</Username>
-  <Password>password1</Password>
+  <Username>koko</Username>
+  <Password>koko123</Password>
   <PublishedFilesSource>D:\UTorrent</PublishedFilesSource>
   <DownloadedFilesDestination>D:\MiniTorrent_Downloaded</DownloadedFilesDestination>
 </MiniTorrentParams>
