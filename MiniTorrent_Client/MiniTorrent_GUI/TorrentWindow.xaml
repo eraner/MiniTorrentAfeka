@@ -5,6 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MiniTorrent_GUI"
         mc:Ignorable="d"
-        Title="TorrentWindow" Height="300" Width="300">
-    <Grid/>
+        Title="TorrentWindow" Height="300" Width="547.598" Closing="Window_Closing">
+    <Window.Resources>
+        <CollectionViewSource x:Key="ItemCollectionViewSource" CollectionViewType="ListCollectionView"/>
+    </Window.Resources>
+
+    <Grid>
+        <DataGrid x:Name="AvailableFileDataGrid" AutoGenerateColumns="True" Margin="10,10,10,0" HorizontalAlignment="Stretch"  VerticalAlignment="Top" HorizontalContentAlignment="Stretch" 
+                  ColumnWidth="*" DataContext="{StaticResource ItemCollectionViewSource}" ItemsSource="{Binding}" />
+    </Grid>
 </Window>
