@@ -9,12 +9,12 @@ namespace MiniTorrent_MediationServerContract
     public interface IMediationServerContract
     {
         /// <summary>
-        /// signin a user and adding his available files to the database.
+        /// gets json string which is JsonItems object signin a user and adding his available files to the database.
         /// </summary>
         /// <param name="jsonString"></param>
         /// <returns></returns>
         [OperationContract]
-        bool signin(string jsonString);
+        bool SingIn(string jsonString);
 
         /// <summary>
         /// checking for existing username+password at the database.
@@ -26,7 +26,7 @@ namespace MiniTorrent_MediationServerContract
         bool Authenticate(string username, string password);
         
         /// <summary>
-        /// checks if the file exists and returns json string containing delails of the file.
+        /// gets json string which is JsonItems object. checks if the file exists and returns json string containing delails of the file.
         /// </summary>
         /// <param name="jsonString"></param>
         /// <returns>
@@ -36,13 +36,12 @@ namespace MiniTorrent_MediationServerContract
         string RequestAFile(string jsonString);
 
         /// <summary>
-        /// gets json string, with username and password, and mark this user as unavailable including his files.
+        /// gets json string which is JsonItems object, with username password and ip, and mark this user as unavailable including his files.
         /// </summary>
         /// <param name="jasonString"></param>
         /// <returns></returns>
         [OperationContract]
         bool SignOut(string jsonString);
-        
     }
 
     public class JsonItems

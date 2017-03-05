@@ -13,7 +13,6 @@ namespace DatabaseHelper
     {
         private LinqToDBDataContext linq_DB;
 
-
         public DBHelper()
         {
             linq_DB = new LinqToDBDataContext();
@@ -34,13 +33,11 @@ namespace DatabaseHelper
 
         public bool SignUpNewUser(string username, string password)
         {
-            User u = new User
+            linq_DB.Users.InsertOnSubmit(new User
             {
                 Username = username,
                 Password = password
-            };
-
-            linq_DB.Users.InsertOnSubmit(u);
+            });
             try
             {
                 linq_DB.SubmitChanges();
@@ -120,12 +117,11 @@ namespace DatabaseHelper
 
         public bool ContainsFile(string filename)
         {
-            return linq_DB.Files.Any(item => item.name == filename);
+            return (from file in linq_DB.Files
+                    where file.name == filename
+                    select file).Count() >= 1;
         }
 
-
-
-        /*NEED TO IMPLEMENT*/
         public FileDetails GetFileInfo(string filename)
         {
             FileDetails details = new FileDetails();
@@ -134,6 +130,47 @@ namespace DatabaseHelper
             details.Count = linq_DB.Files.Count(item => item.name == filename);
 
             return details;
+        }
+
+        public bool SignoutUser(string username)
+        {
+
+            var userToDelete = (from user in linq_DB.Signins
+                                where user.username == username
+                                select user).First();
+            if (userToDelete == null)
+                return false;
+
+            linq_DB.Signins.DeleteOnSubmit(userToDelete);
+
+            try
+            {
+                linq_DB.SubmitChanges();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool ClearUserFiles(string ip)
+        {
+            var filesToDelete = (from files in linq_DB.Files
+                                 where files.userIP == ip
+                                 select files);
+            foreach (var fileToDelete in filesToDelete)
+                linq_DB.Files.DeleteOnSubmit(fileToDelete);
+
+            try
+            {
+                linq_DB.SubmitChanges();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
