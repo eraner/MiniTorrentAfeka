@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniTorrent_GUI", "MiniTorrent_GUI\MiniTorrent_GUI.csproj", "{88D6F3A8-746B-4A8F-B006-DC0A4E17435C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniTorrent_MediationServerContract", "..\MiniTorrent_Web\MiniTorrent_MediationServerContract\MiniTorrent_MediationServerContract.csproj", "{324AB4AF-CDA0-4477-8428-E378902D2045}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{88D6F3A8-746B-4A8F-B006-DC0A4E17435C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88D6F3A8-746B-4A8F-B006-DC0A4E17435C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88D6F3A8-746B-4A8F-B006-DC0A4E17435C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{324AB4AF-CDA0-4477-8428-E378902D2045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{324AB4AF-CDA0-4477-8428-E378902D2045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{324AB4AF-CDA0-4477-8428-E378902D2045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{324AB4AF-CDA0-4477-8428-E378902D2045}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

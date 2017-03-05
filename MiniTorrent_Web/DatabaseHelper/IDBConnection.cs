@@ -70,6 +70,6 @@ namespace DatabaseHelper
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        string GetFileInfo(string filename);
+        FileDetails GetFileInfo(string filename);
     }
 }
