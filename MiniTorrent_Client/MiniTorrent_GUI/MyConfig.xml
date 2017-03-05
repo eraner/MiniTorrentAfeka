@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <MiniTorrentParams>
-  <ServerIpAddress>localhost</ServerIpAddress>
+  <ServerIpAddress>172.20.16.237</ServerIpAddress>
   <IncomingTcpPort>8005</IncomingTcpPort>
   <OutgoingTcpPort>8006</OutgoingTcpPort>
   <Username>koko</Username>

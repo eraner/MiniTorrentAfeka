@@ -7,6 +7,7 @@ using MiniTorrent_MediationServerContract;
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Sockets;
+using System.ServiceModel;
 
 namespace MiniTorrent_GUI
 {
@@ -36,7 +37,6 @@ namespace MiniTorrent_GUI
         public MainWindow()
         {
             InitializeComponent();
-            client = new MediationReference.MediationServerContractClient();
             localIp = GetLocalIPAddress();
         }
 
@@ -84,6 +84,10 @@ namespace MiniTorrent_GUI
 
             if (!validateConfigFile())
                 return;
+
+            EndpointAddress remoteAddress = new EndpointAddress("http://" + connectionDetails.ServerIpAddress +
+                ":8089/MediationService");
+            client = new MediationReference.MediationServerContractClient("BasicHttpBinding_IMediationServerContract", remoteAddress);
 
             try
             {
