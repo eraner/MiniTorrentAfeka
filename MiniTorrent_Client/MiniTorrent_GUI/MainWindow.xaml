@@ -21,11 +21,13 @@
         <Label x:Name="UsernameLabel" Content="Username:" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top" FontSize="18.667" Height="35" Width="97"/>
         <TextBox x:Name="UsernameTextbox" HorizontalAlignment="Left" Height="23" Margin="0,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" RenderTransformOrigin="0.061,0.214" FontSize="18.667" Grid.Column="1" TextAlignment="Center"/>
         <Label x:Name="PasswordLabel" Content="Password:" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" FontSize="18.667" Height="35" Width="91"/>
-        <TextBox x:Name="PasswordTextbox" HorizontalAlignment="Left" Height="23" Margin="0,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" RenderTransformOrigin="0.061,0.214" FontSize="18.667" Grid.Column="1" TextAlignment="Center"/>
+        <PasswordBox x:Name="PasswordTextbox" HorizontalAlignment="Left" Height="23" Margin="0,144,0,0"  VerticalAlignment="Top" Width="238" RenderTransformOrigin="0.061,0.214" FontSize="18.667" Grid.Column="1" PasswordChar="*" HorizontalContentAlignment="Center" />
         <Label x:Name="PublishedFilesSourceLabel" Content="Published Files Source:" HorizontalAlignment="Left" Margin="10,175,0,0" VerticalAlignment="Top" FontSize="18.667" Height="35" Width="196"/>
         <TextBox x:Name="PublishedFilesSourceTextbox" HorizontalAlignment="Left" Height="23" Margin="0,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" RenderTransformOrigin="0.061,0.214" FontSize="18.667" Grid.Column="1" TextAlignment="Center" Text="D:\MiniTorrent"/>
+        <Button x:Name="SourceButton" Content="..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="20" Grid.Column="1" Margin="251.2,182,0,0" Height="20" Click="SourceButton_Click"/>
         <Label x:Name="DownloadedFilesDestLabel" Content="Downloaded Files Dest.:" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" FontSize="18.667" Height="35" Width="216"/>
         <TextBox x:Name="DownloadedFilesDestTextbox" HorizontalAlignment="Left" Height="23" Margin="0,214,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" RenderTransformOrigin="0.061,0.214" FontSize="18.667" Grid.Column="1" TextAlignment="Center" Text="D:\MiniTorrent_Downloaded"/>
+        <Button x:Name="DestinationButton" Content="..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="20" Grid.Column="1" Margin="251.2,217,0,0" Height="20" Click="DestinationButton_Click" RenderTransformOrigin="0.43,2.8"/>
         
         <CheckBox x:Name="PreDefinedConfigCheckBox" Content="Use Pre-Defined MyConfig.xml file" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Checked="checkBox_Changed" Unchecked="checkBox_Changed"/>
 

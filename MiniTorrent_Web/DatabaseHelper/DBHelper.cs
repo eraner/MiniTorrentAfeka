@@ -186,5 +186,12 @@ namespace DatabaseHelper
 
             return filesIP;
         }
+
+        public bool IsAlreadySignedIn(string username)
+        {
+            return (from signed in linq_DB.Signins
+                           where signed.username == username
+                        select signed).Count() >= 1;
+        }
     }
 }

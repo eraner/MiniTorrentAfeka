@@ -1,9 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="C:\USERS\ELAUDIN\DOCUMENTS\MINITORRENT_DB.MDF" Class="LinqToDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\v11.0;Initial Catalog=C:\USERS\ELAUDIN\DOCUMENTS\MINITORRENT_DB.MDF;Integrated Security=True;Connect Timeout=30" SettingsObjectName="DatabaseHelper.Properties.Settings" SettingsPropertyName="C__USERS_ELAUDIN_DOCUMENTS_MINITORRENT_DB_MDFConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MiniTorrent_DB" Class="LinqToDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\MiniTorrent_DB.mdf;Integrated Security=True" SettingsObjectName="DatabaseHelper.Properties.Settings" SettingsPropertyName="MiniTorrent_DBConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.[User]" Member="Users">
     <Type Name="User">
       <Column Name="Username" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Password" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Signin" Member="Signins">
+    <Type Name="Signin">
+      <Column Name="username" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ip" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="port" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.[File]" Member="Files">
@@ -12,13 +19,6 @@
       <Column Name="name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="size" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="userIP" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Signin" Member="Signins">
-    <Type Name="Signin">
-      <Column Name="username" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ip" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="port" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

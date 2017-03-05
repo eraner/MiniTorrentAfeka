@@ -22,6 +22,9 @@ namespace WcfMediationService
             if (!Authenticate(username, password))
                 return false;
 
+            if (dbHelper.IsAlreadySignedIn(username))
+                return false;
+
             try
             {
                 /*setting params for database*/

@@ -61,5 +61,22 @@ namespace MiniTorrent_GUI
                 e.Cancel = true;
             }
         }
+
+        private void UpdateFilesButton_Click(object sender, RoutedEventArgs e)
+        {
+            updateAvailableFiles();
+        }
+
+        private void requestAFile(string fileName)
+        {
+            RequestFileLabel.Content = fileName;
+
+        }
+
+        private void RequestAFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            FileDetails file = (FileDetails)AvailableFileDataGrid.SelectedItem;
+            requestAFile(file.Name);
+        }
     }
 }

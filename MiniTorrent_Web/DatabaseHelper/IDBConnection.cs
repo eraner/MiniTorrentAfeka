@@ -92,5 +92,7 @@ namespace DatabaseHelper
         /// </summary>
         /// <returns></returns>
         List<string> GetFileIPs(string filename);
+
+        bool IsAlreadySignedIn(string username);
     }
 }

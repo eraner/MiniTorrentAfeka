@@ -26,8 +26,6 @@ namespace MiniTorrent_GUI
         public const string PASSWORD = "Password";
         public const string SOURCE_DIR = "PublishedFilesSource";
         public const string DEST_DIR = "DownloadedFilesDestination";
-        private const long ONE_KB = 1024;
-        private const long ONE_MB = ONE_KB * 1024;
         #endregion
 
         private MediationReference.MediationServerContractClient client;
@@ -75,7 +73,6 @@ namespace MiniTorrent_GUI
             }
             return true;
         }
-        
 
         private void Connect_Click(object sender, RoutedEventArgs e)
         {
@@ -92,7 +89,10 @@ namespace MiniTorrent_GUI
             try
             {
                 if (!ConnectToServer())
+                {
+                    MessageBox.Show("Failed to connect to Torrent server", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
+                }
             }
             catch (System.ServiceModel.EndpointNotFoundException)
             {
@@ -107,7 +107,7 @@ namespace MiniTorrent_GUI
 
         private bool ConnectToServer()
         {
-            List<FileDetails> filesList = getFilesList(connectionDetails.PublishedFilesSource);
+            List<FileDetails> filesList = FilesHelper.getFilesList(connectionDetails.PublishedFilesSource);
             JsonItems jsonItems = new JsonItems
             {
                 Username = connectionDetails.Username,
@@ -120,48 +120,7 @@ namespace MiniTorrent_GUI
 
             return client.SingIn(toSend);
         }
-
-        public static  List<FileDetails> getFilesList(string source)
-        {
-            List<FileDetails> filesList = new List<FileDetails>();
-
-            if (!Directory.Exists(source))
-            {
-                //No files to publish returning empty list.
-                return filesList;
-            }
-
-            string[] filesPaths = Directory.GetFiles(source);
-            foreach (string file in filesPaths)
-            {
-                FileDetails curr = getFileDetailes(file);
-                if (curr != null)
-                    filesList.Add(curr);
-            }
-
-            string[] subDirs = Directory.GetDirectories(source);
-            foreach (string dir in subDirs)
-            {
-                filesList.AddRange(getFilesList(dir));
-            }
-
-            return filesList;
-        }
-
-        public static FileDetails getFileDetailes(string path)
-        {
-            FileDetails file = new FileDetails();
-            if (!File.Exists(path))
-                return null;
-
-            long sizeInBytes = new FileInfo(path).Length;
-            file.Size = ((float)sizeInBytes) / ONE_MB;
-            file.Name= System.IO.Path.GetFileName(path);
-            file.Count = -1;
-
-            return file;
-        }
-
+       
         private void updateConfigFile()
         {
             XmlDocument xDoc = new XmlDocument();
@@ -172,7 +131,7 @@ namespace MiniTorrent_GUI
             paramsNode.SelectSingleNode(INCOMING_PORT).InnerText = IncomingTcpPortTextbox.Text;
             paramsNode.SelectSingleNode(OUTGOING_PORT).InnerText = OutgoingTcpPortTextbox.Text;
             paramsNode.SelectSingleNode(USERNAME).InnerText = UsernameTextbox.Text;
-            paramsNode.SelectSingleNode(PASSWORD).InnerText = PasswordTextbox.Text;
+            paramsNode.SelectSingleNode(PASSWORD).InnerText = PasswordTextbox.Password;
             paramsNode.SelectSingleNode(SOURCE_DIR).InnerText = PublishedFilesSourceTextbox.Text;
             paramsNode.SelectSingleNode(DEST_DIR).InnerText = DownloadedFilesDestTextbox.Text;
 
@@ -203,6 +162,25 @@ namespace MiniTorrent_GUI
                 }
             }
             throw new Exception("Local IP Address Not Found!");
+        }
+
+        private void SourceButton_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                dialog.ShowDialog();
+                PublishedFilesSourceTextbox.Text = dialog.SelectedPath;
+            }
+
+        }
+
+        private void DestinationButton_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                dialog.ShowDialog();
+                DownloadedFilesDestTextbox.Text = dialog.SelectedPath;
+            }
         }
     }
 }
