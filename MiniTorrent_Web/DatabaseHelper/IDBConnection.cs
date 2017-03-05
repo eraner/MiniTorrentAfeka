@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MiniTorrent_MediationServerContract;
 
 namespace DatabaseHelper
 {
@@ -48,7 +49,7 @@ namespace DatabaseHelper
         /// <param name="name"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        bool AddFiles(string name, float size, string ip);
+        bool AddFiles(List<FileDetails> files, string ip);
 
         /// <summary>
         /// returns a list of strings for files.

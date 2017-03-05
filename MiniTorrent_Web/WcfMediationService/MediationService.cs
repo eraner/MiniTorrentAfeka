@@ -27,16 +27,13 @@ namespace WcfMediationService
             try
             {
                 /*setting params for database*/
-                List<FileInfo> userFiles = items.AllFiles;
+                List<FileDetails> userFiles = items.AllFiles;
                 string ip = items.Ip;
                 string port = items.Port;
 
                 /*adding user and files to the database.*/
                 dbHelper.SignInUser(username, ip, port);
-                foreach (FileInfo file in userFiles)
-                {
-                    dbHelper.AddFiles(file.name, file.size, ip);
-                }
+                dbHelper.AddFiles(userFiles, ip);
             }
             catch
             {
@@ -63,21 +60,22 @@ namespace WcfMediationService
             if (dbHelper == null)
                 new DBHelper();
 
-            if (!Authenticate(items.Username, items.Password))
+            if (!Authenticate(items.Username, items.Password) || (items.AllFiles.Count != 1))
                 return string.Empty;
 
-            if (items.AllFiles.Count != 1)
+            FileDetails file = items.AllFiles[0];
+            if (!dbHelper.ContainsFile(file.Name))
                 return string.Empty;
 
-            FileInfo file = items.AllFiles[0];
-            if (!dbHelper.ContainsFile(file.name))
-                return string.Empty;
+            FileDetails details = dbHelper.GetFileInfo(file.Name);
 
-
-
-            return "";
+            return JsonConvert.SerializeObject(details);
         }
-    }
 
-    
+
+        public bool SignOut(string jsonString)
+        {
+            throw new NotImplementedException();
+        }
+    }  
 }

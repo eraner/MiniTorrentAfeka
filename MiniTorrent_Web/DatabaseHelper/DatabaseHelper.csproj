@@ -120,6 +120,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MiniTorrent_MediationServerContract\MiniTorrent_MediationServerContract.csproj">
+      <Project>{324ab4af-cda0-4477-8428-e378902d2045}</Project>
+      <Name>MiniTorrent_MediationServerContract</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
+using MiniTorrent_MediationServerContract;
 
 namespace DatabaseHelper
 {
@@ -81,15 +82,17 @@ namespace DatabaseHelper
             return true;
         }
 
-        public bool AddFiles(string name, float size, string ip)
+        public bool AddFiles(List<FileDetails> files, string ip)
         {
-            File f = new File
+            foreach(FileDetails file in files)
             {
-                name = name,
-                size = size,
-                userIP = ip,
-            };
-            linq_DB.Files.InsertOnSubmit(f);
+                linq_DB.Files.InsertOnSubmit(new File
+                {
+                    name = file.Name,
+                    size = file.Size,
+                    userIP = ip
+                });
+            }
 
             try
             {
@@ -123,13 +126,14 @@ namespace DatabaseHelper
 
 
         /*NEED TO IMPLEMENT*/
-        public string GetFileInfo(string filename)
+        public FileDetails GetFileInfo(string filename)
         {
-            string details = filename;
-            linq_DB.Files.Select(item => item.name == filename);
-            linq_DB.Files.Count(item => item.name == filename);
+            FileDetails details = new FileDetails();
+            details.Name = filename;
+            details.Size = (float)linq_DB.Files.First(item => item.name == filename).size;
+            details.Count = linq_DB.Files.Count(item => item.name == filename);
 
-            return "";
+            return details;
         }
     }
 }

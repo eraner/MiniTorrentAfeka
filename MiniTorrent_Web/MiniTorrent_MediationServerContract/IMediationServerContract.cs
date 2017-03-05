@@ -26,7 +26,7 @@ namespace MiniTorrent_MediationServerContract
         bool Authenticate(string username, string password);
         
         /// <summary>
-        /// checks if the file exists and returns delails of the file.
+        /// checks if the file exists and returns json string containing delails of the file.
         /// </summary>
         /// <param name="jsonString"></param>
         /// <returns>
@@ -35,7 +35,13 @@ namespace MiniTorrent_MediationServerContract
         [OperationContract]
         string RequestAFile(string jsonString);
 
-
+        /// <summary>
+        /// gets json string, with username and password, and mark this user as unavailable including his files.
+        /// </summary>
+        /// <param name="jasonString"></param>
+        /// <returns></returns>
+        [OperationContract]
+        bool SignOut(string jsonString);
         
     }
 
@@ -45,12 +51,13 @@ namespace MiniTorrent_MediationServerContract
         public string Password { get; set; }
         public string Ip { get; set; }
         public string Port { get; set; }
-        public List<FileInfo> AllFiles { get; set; }
+        public List<FileDetails> AllFiles { get; set; }
     }
 
-    public class FileInfo
+    public class FileDetails
     {
-        public string name { get; set; }
-        public float size { get; set; }
+        public string Name { get; set; }
+        public float Size { get; set; }
+        public int Count { get; set; }
     }
 }
