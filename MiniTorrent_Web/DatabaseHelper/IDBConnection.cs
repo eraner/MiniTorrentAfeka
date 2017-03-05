@@ -55,7 +55,7 @@ namespace DatabaseHelper
         /// returns a list of strings for files.
         /// </summary>
         /// <returns></returns>
-        List<string> GetFilesNameList();
+        List<FileDetails> GetFilesDetailsList();
 
         /// <summary>
         /// 
@@ -86,5 +86,11 @@ namespace DatabaseHelper
         /// <param name="ip"></param>
         /// <returns></returns>
         bool ClearUserFiles(string ip);
+
+        /// <summary>
+        /// returns a list of strings containing the ips of the users which are holding this file.
+        /// </summary>
+        /// <returns></returns>
+        List<string> GetFileIPs(string filename);
     }
 }

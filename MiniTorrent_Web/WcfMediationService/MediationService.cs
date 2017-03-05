@@ -6,8 +6,6 @@ using System.ServiceModel.Channels;
 using DatabaseHelper;
 using Newtonsoft.Json;
 
-
-
 namespace WcfMediationService
 {
     public class MediationService : IMediationServerContract
@@ -87,6 +85,25 @@ namespace WcfMediationService
                 return false;
 
             return true;
+        }
+
+        public string GetAvailableFiles()
+        {
+            if (dbHelper == null)
+                dbHelper = new DBHelper();
+
+            List<FileDetails> allFiles = dbHelper.GetFilesDetailsList();
+
+            return JsonConvert.SerializeObject(allFiles);
+        }
+
+        public string GetIpListForAFile(string filename)
+        {
+            if (dbHelper == null)
+                dbHelper = new DBHelper();
+
+            List<string> allIps = dbHelper.GetFileIPs(filename);
+            return JsonConvert.SerializeObject(allIps);
         }
     }  
 }

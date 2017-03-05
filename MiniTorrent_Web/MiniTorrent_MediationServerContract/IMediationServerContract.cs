@@ -26,7 +26,7 @@ namespace MiniTorrent_MediationServerContract
         bool Authenticate(string username, string password);
         
         /// <summary>
-        /// gets json string which is JsonItems object. checks if the file exists and returns json string containing delails of the file.
+        /// gets json string which is JsonItems object. checks if the file exists and returns json string containing delails of the file - name, size, count.
         /// </summary>
         /// <param name="jsonString"></param>
         /// <returns>
@@ -42,6 +42,21 @@ namespace MiniTorrent_MediationServerContract
         /// <returns></returns>
         [OperationContract]
         bool SignOut(string jsonString);
+
+        /// <summary>
+        /// Returns available files in json string with list of FileDetails object.
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        string GetAvailableFiles();
+
+        /// <summary>
+        /// returns a json string which is a list of IPs(strings) for the requested filename.
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        [OperationContract]
+        string GetIpListForAFile(string filename);
     }
 
     public class JsonItems

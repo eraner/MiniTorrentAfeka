@@ -90,7 +90,6 @@ namespace DatabaseHelper
                     userIP = ip
                 });
             }
-
             try
             {
                 linq_DB.SubmitChanges();
@@ -102,17 +101,17 @@ namespace DatabaseHelper
             return true;
         }
 
-        public List<string> GetFilesNameList()
+        public List<FileDetails> GetFilesDetailsList()
         {
-            List<string> filesNamesList = new List<string>();
+            List<FileDetails> filesDetailsList = new List<FileDetails>();
 
-            List<File> files = linq_DB.Files.ToList();
+            var files = (from file in linq_DB.Files
+                            select file).GroupBy(key => key.name);
             foreach (File file in files)
             {
-                filesNamesList.Add(file.name);
+                filesDetailsList.Add(GetFileInfo(file.name));
             }
-
-            return filesNamesList;
+            return filesDetailsList;
         }
 
         public bool ContainsFile(string filename)
@@ -171,6 +170,19 @@ namespace DatabaseHelper
                 return false;
             }
             return true;
+        }
+
+        public List<string> GetFileIPs(string filename)
+        {
+            var allIPs = (from file in linq_DB.Files
+                          where file.name == filename
+                          select file);
+
+            List<string> filesIP = new List<string>();
+            foreach (var ip in allIPs)
+                filesIP.Add(ip.userIP);
+
+            return filesIP;
         }
     }
 }
