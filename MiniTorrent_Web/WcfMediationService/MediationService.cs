@@ -7,6 +7,7 @@ using DatabaseHelper;
 using Newtonsoft.Json;
 
 
+
 namespace WcfMediationService
 {
     public class MediationService : IMediationServerContract
@@ -72,22 +73,11 @@ namespace WcfMediationService
             if (!dbHelper.ContainsFile(file.name))
                 return string.Empty;
 
+
+
             return "";
         }
     }
 
-    public class JsonItems
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Ip { get; set; }
-        public string Port { get; set; }
-        public List<FileInfo> AllFiles { get; set; }
-    }
-
-    public class FileInfo
-    {
-        public string name { get; set; }
-        public float size { get; set; }
-    }
+    
 }

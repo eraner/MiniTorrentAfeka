@@ -24,9 +24,33 @@ namespace MiniTorrent_MediationServerContract
         /// <returns></returns>
         [OperationContract]
         bool Authenticate(string username, string password);
-
+        
+        /// <summary>
+        /// checks if the file exists and returns delails of the file.
+        /// </summary>
+        /// <param name="jsonString"></param>
+        /// <returns>
+        ///     returns empty string if the process fails.
+        /// </returns>
         [OperationContract]
         string RequestAFile(string jsonString);
-            
+
+
+        
+    }
+
+    public class JsonItems
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Ip { get; set; }
+        public string Port { get; set; }
+        public List<FileInfo> AllFiles { get; set; }
+    }
+
+    public class FileInfo
+    {
+        public string name { get; set; }
+        public float size { get; set; }
     }
 }
