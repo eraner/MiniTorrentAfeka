@@ -64,6 +64,7 @@
     </ApplicationDefinition>
     <Compile Include="ConnectionDetails.cs" />
     <Compile Include="FilesHelper.cs" />
+    <Compile Include="FileDataContract.cs" />
     <Compile Include="ServerTask.cs" />
     <Compile Include="Service References\MediationReference\Reference.cs">
       <AutoGen>True</AutoGen>
