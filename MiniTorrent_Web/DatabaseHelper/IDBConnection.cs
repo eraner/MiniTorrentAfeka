@@ -66,10 +66,25 @@ namespace DatabaseHelper
         bool ContainsFile(string filename);
 
         /// <summary>
-        /// returns string with "<filename> <size> <count>"
+        /// returns FileDetails object with file details.
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
         FileDetails GetFileInfo(string filename);
+
+        /// <summary>
+        /// signing out a user from the signin table with username+password.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        bool SignoutUser(string username);
+
+        /// <summary>
+        /// clearing the user's files from DB.
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        bool ClearUserFiles(string ip);
     }
 }
