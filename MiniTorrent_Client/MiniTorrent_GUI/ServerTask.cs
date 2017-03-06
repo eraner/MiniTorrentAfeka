@@ -42,7 +42,7 @@ namespace MiniTorrent_GUI
             byte[] dataBuffer = new byte[received];
             Array.Copy(buffer, dataBuffer, received);
 
-            /*Message from client*/
+            /*Message from client - FileDataContract json string.*/
             string receivedMsg = Encoding.ASCII.GetString(dataBuffer);
             FileDataContract fileDetails = (FileDataContract)JsonConvert.DeserializeObject(receivedMsg);
             byte[] sourceFile = File.ReadAllBytes(connDetails.PublishedFilesSource + fileDetails.Filename);
@@ -61,6 +61,7 @@ namespace MiniTorrent_GUI
             Socket socket = (Socket)ar.AsyncState;
             socket.EndSend(ar);
             socket.Close();
+            clientSockets.Remove(socket);
         }
     }
 
