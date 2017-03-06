@@ -182,5 +182,6 @@ namespace MiniTorrent_GUI
                 DownloadedFilesDestTextbox.Text = dialog.SelectedPath;
             }
         }
+
     }
 }

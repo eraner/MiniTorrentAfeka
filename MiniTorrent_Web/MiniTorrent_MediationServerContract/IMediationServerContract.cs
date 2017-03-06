@@ -26,7 +26,8 @@ namespace MiniTorrent_MediationServerContract
         bool Authenticate(string username, string password);
         
         /// <summary>
-        /// gets json string which is JsonItems object. checks if the file exists and returns json string containing delails of the file - name, size, count.
+        /// gets json string which is JsonItems object contains username, password and one file inside the list. 
+        /// checks if the file exists and returns json string containing Filedetails object of the file - name, size, count.
         /// </summary>
         /// <param name="jsonString"></param>
         /// <returns>
@@ -51,7 +52,7 @@ namespace MiniTorrent_MediationServerContract
         string GetAvailableFiles();
 
         /// <summary>
-        /// returns a json string which is a list of IPs(strings) for the requested filename.
+        /// returns a json string which is a list of IpPort objects for the requested filename.
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
@@ -73,5 +74,11 @@ namespace MiniTorrent_MediationServerContract
         public string Name { get; set; }
         public float Size { get; set; }
         public int Count { get; set; }
+    }
+
+    public class IpPort
+    {
+        public string IpAddress { get; set; }
+        public string Port { get; set; }
     }
 }

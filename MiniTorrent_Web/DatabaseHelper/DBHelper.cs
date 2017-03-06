@@ -174,17 +174,35 @@ namespace DatabaseHelper
             return true;
         }
 
-        public List<string> GetFileIPs(string filename)
+        public List<IpPort> GetFileIPs(string filename)
         {
-            var allIPs = (from file in linq_DB.Files
+            var allFiles = (from file in linq_DB.Files
                           where file.name == filename
                           select file);
 
-            List<string> filesIP = new List<string>();
-            foreach (var ip in allIPs)
-                filesIP.Add(ip.userIP);
+            List<IpPort> IpPortList = new List<IpPort>();
+            foreach (var file in allFiles)
+            {
+                string port;
+                try
+                {
+                    port = linq_DB.Signins.Single(s => s.ip == file.userIP).port;
+                }
+                catch(Exception)
+                {
+                    //No port was found continue to the next file. 
+                    continue;
+                }
 
-            return filesIP;
+                IpPortList.Add(new IpPort
+                {
+                    IpAddress = file.userIP,
+                    Port = port
+                });
+            }
+
+
+            return IpPortList;
         }
 
         public bool IsAlreadySignedIn(string username)

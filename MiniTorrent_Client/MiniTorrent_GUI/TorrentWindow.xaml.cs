@@ -21,10 +21,19 @@ namespace MiniTorrent_GUI
     /// </summary>
     public partial class TorrentWindow : Window
     {
+        #region Constants
+        public const string FAILURE = "Failure";
+        public const string NOTICE = "Notice";
+        public const string SERVER_MISSING_FILES = "ERROR:\nThe server couldn't find the file you are requsting.\nThe download will be canceled.";
+        #endregion
+
         private MediationReference.MediationServerContractClient client;
         private ConnectionDetails connectionDetails;
         private string localIP;
         private List<FileDetails> availableFiles;
+        private CollectionViewSource itemCollectionViewSource;
+        private List<FileDetails> ownedFilesList;
+        private List<FileDetails> downloadedFilesList;
 
         public TorrentWindow(MediationReference.MediationServerContractClient client, ConnectionDetails details, string localIP)
         {
@@ -34,16 +43,18 @@ namespace MiniTorrent_GUI
             connectionDetails = details;
             this.localIP = localIP;
 
-            updateAvailableFiles();
-            CollectionViewSource itemCollectionViewSource;
+            
+            //CollectionViewSource itemCollectionViewSource;
             itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
             itemCollectionViewSource.Source = availableFiles;
+            updateAvailableFiles();
         }
 
         private void updateAvailableFiles()
         {
             string serializedData = client.GetAvailableFiles();
             availableFiles = JsonConvert.DeserializeObject<List<FileDetails>>(serializedData);
+            itemCollectionViewSource.Source = availableFiles;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -70,7 +81,74 @@ namespace MiniTorrent_GUI
         private void requestAFile(string fileName)
         {
             RequestFileLabel.Content = fileName;
+            FileDetails file = availableFiles.Find(f => f.Name == fileName);
 
+            if (fileExistsOnComputer(file))
+                return;
+
+            if (!validateFileRequest(file))
+                return;
+
+           // List<IpPort> ipPortList = client.
+
+            //ClientTask download = new ClientTask (
+            
+        }
+
+        private bool validateFileRequest(FileDetails file)
+        {
+            List<FileDetails> list = new List<FileDetails>();
+            list.Add(file);
+            JsonItems j = new JsonItems
+            {
+                Username = connectionDetails.Username,
+                Password = connectionDetails.Password,
+                AllFiles = list
+            };
+
+            string fileDetailsString = client.RequestAFile(JsonConvert.SerializeObject(j));
+            if (string.IsNullOrEmpty(fileDetailsString))
+            {
+                showMessageBox(SERVER_MISSING_FILES, FAILURE);
+                return false;
+            }
+            FileDetails requestedFile = JsonConvert.DeserializeObject<FileDetails>(fileDetailsString);
+            string msg = $"Please be advise you are going to download the following file:\nFile Name: {requestedFile.Name}.\nSize: {requestedFile.Size} MB.\n" +
+                $"Number of Users: {requestedFile.Count}.\n\nAre you sure you want to proceed?";
+            if (MessageBoxResult.Cancel ==  showMessageBox(msg, NOTICE))
+            {
+                //User selected to cancel the download.
+                return false;
+            }
+            return true;
+
+        }
+
+        private MessageBoxResult showMessageBox(string msg, string title)
+        {
+            return MessageBox.Show(msg, title, MessageBoxButton.OKCancel);
+        }
+    
+        private bool fileExistsOnComputer(FileDetails file)
+        {
+            ownedFilesList = FilesHelper.getFilesList(connectionDetails.PublishedFilesSource);
+            downloadedFilesList = FilesHelper.getFilesList(connectionDetails.DownloadedFilesDestination);
+
+            if (ownedFilesList.Exists(f => f.Name == file.Name))
+            {
+                MessageBox.Show($"The file: \"{file.Name}\", alreadly exists on your computer.\n"
+                    + $"Please check: {connectionDetails.PublishedFilesSource}","File Exist", MessageBoxButton.OK);
+                return true;
+            }
+
+            if (downloadedFilesList.Exists(f => f.Name == file.Name))
+            {
+                MessageBox.Show($"The file: \"{file.Name}\", alreadly exists on your computer.\n"
+                    + $"Please check: {connectionDetails.DownloadedFilesDestination}");
+                return true;
+            }
+
+            return false;
         }
 
         private void RequestAFileButton_Click(object sender, RoutedEventArgs e)

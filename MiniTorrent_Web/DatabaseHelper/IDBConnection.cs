@@ -91,7 +91,7 @@ namespace DatabaseHelper
         /// returns a list of strings containing the ips of the users which are holding this file.
         /// </summary>
         /// <returns></returns>
-        List<string> GetFileIPs(string filename);
+        List<IpPort> GetFileIPs(string filename);
 
         bool IsAlreadySignedIn(string username);
     }
