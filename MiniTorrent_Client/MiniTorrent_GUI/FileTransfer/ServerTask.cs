@@ -13,11 +13,39 @@ namespace MiniTorrent_GUI
     class ServerTask
     {
         ConnectionDetails connDetails;
-        private byte[] buffer = new byte[1024];
-        private List<Socket> clientSockets = new List<Socket>();
-        private Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        //private byte[] buffer = new byte[1024];
+        //private List<Socket> clientSockets = new List<Socket>();
+        //private Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
+        private TcpListener clientListener;
 
+        public ServerTask(ConnectionDetails connDetails)
+        {
+            this.connDetails = connDetails;
+
+            WaitForConnections();
+        }
+    
+
+        public async void WaitForConnections()
+        {
+            try
+            {
+                clientListener = new TcpListener(IPAddress.Parse(connDetails.ServerIpAddress), connDetails.IncomingTcpPort);
+                clientListener.Start();
+
+                while (true)
+                {
+                    TcpClient clientSocket = await clientListener.AcceptTcpClientAsync();
+                    Uploader uploader = new Uploader(clientSocket, connDetails); 
+                }
+            }catch
+            {
+
+            }
+        }
+
+       
 
 
 
