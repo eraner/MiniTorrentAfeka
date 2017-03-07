@@ -47,7 +47,7 @@ namespace MiniTorrent_GUI
             //TODO
            // updateDownloadingFiles();
 
-            ServerTask serverTask = new ServerTask(connectionDetails);
+            ServerTask serverTask = new ServerTask(connectionDetails, localIP);
         }
 
         private void updateDownloadingFiles()

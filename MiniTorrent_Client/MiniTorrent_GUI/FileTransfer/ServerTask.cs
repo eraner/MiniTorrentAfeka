@@ -12,15 +12,17 @@ namespace MiniTorrent_GUI
 {
     class ServerTask
     {
-        ConnectionDetails connDetails;
+        private ConnectionDetails connDetails;
+        private string localIp;
         //private byte[] buffer = new byte[1024];
         //private List<Socket> clientSockets = new List<Socket>();
         //private Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         private TcpListener clientListener;
 
-        public ServerTask(ConnectionDetails connDetails)
+        public ServerTask(ConnectionDetails connDetails, string localIp)
         {
+            this.localIp = localIp;
             this.connDetails = connDetails;
 
             WaitForConnections();
@@ -31,7 +33,7 @@ namespace MiniTorrent_GUI
         {
             try
             {
-                clientListener = new TcpListener(IPAddress.Parse(connDetails.ServerIpAddress), connDetails.IncomingTcpPort);
+                clientListener = new TcpListener(IPAddress.Parse(localIp), connDetails.IncomingTcpPort);
                 clientListener.Start();
 
                 while (true)
