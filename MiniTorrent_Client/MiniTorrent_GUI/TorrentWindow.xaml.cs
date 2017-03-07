@@ -45,7 +45,7 @@ namespace MiniTorrent_GUI
             updateAvailableFiles();
             downloadingFileSource = (CollectionViewSource)(FindResource("DownloadingFileSource"));
             //TODO
-            updateDownloadingFiles();
+           // updateDownloadingFiles();
 
             ServerTask serverTask = new ServerTask(connectionDetails);
         }

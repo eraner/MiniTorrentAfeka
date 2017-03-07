@@ -18,7 +18,7 @@
 
     <Grid>
         <DataGrid x:Name="AvailableFileDataGrid" AutoGenerateColumns="True" Margin="10,10,10,0" HorizontalAlignment="Stretch"  VerticalAlignment="Top" HorizontalContentAlignment="Stretch" 
-                  ColumnWidth="*" DataContext="{StaticResource ItemCollectionViewSource}" ItemsSource="{Binding}" FontSize="16" SelectionMode="Single" VerticalScrollBarVisibility="Visible" IsReadOnly="True" >
+                  ColumnWidth="*" DataContext="{StaticResource AvailableFileSource}" ItemsSource="{Binding}" FontSize="16" SelectionMode="Single" VerticalScrollBarVisibility="Visible" IsReadOnly="True" >
             <DataGrid.RowBackground>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionColorKey}}"/>
             </DataGrid.RowBackground>
