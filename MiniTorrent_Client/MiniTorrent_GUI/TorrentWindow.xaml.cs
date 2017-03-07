@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MiniTorrent_MediationServerContract;
 using Newtonsoft.Json;
+
 
 namespace MiniTorrent_GUI
 {
@@ -31,9 +23,11 @@ namespace MiniTorrent_GUI
         private ConnectionDetails connectionDetails;
         private string localIP;
         private List<FileDetails> availableFiles;
-        private CollectionViewSource itemCollectionViewSource;
+        private CollectionViewSource availableFileSource;
         private List<FileDetails> ownedFilesList;
-        private List<FileDetails> downloadedFilesList;
+        private List<DownloadedFileItem> downloadedFilesList;
+        private CollectionViewSource downloadedFileSource;
+
 
         public TorrentWindow(MediationReference.MediationServerContractClient client, ConnectionDetails details, string localIP)
         {
@@ -45,16 +39,25 @@ namespace MiniTorrent_GUI
 
             
             //CollectionViewSource itemCollectionViewSource;
-            itemCollectionViewSource = (CollectionViewSource)(FindResource("ItemCollectionViewSource"));
-            itemCollectionViewSource.Source = availableFiles;
+            availableFileSource = (CollectionViewSource)(FindResource("AvailableFileSource"));
+            availableFileSource.Source = availableFiles;
             updateAvailableFiles();
+            downloadedFileSource = (CollectionViewSource)(FindResource("DownloadedFileSource"));
+             
+            updateDownloadingFiles();
+
+        }
+
+        private void updateDownloadingFiles()
+        {
+            throw new NotImplementedException();
         }
 
         private void updateAvailableFiles()
         {
             string serializedData = client.GetAvailableFiles();
             availableFiles = JsonConvert.DeserializeObject<List<FileDetails>>(serializedData);
-            itemCollectionViewSource.Source = availableFiles;
+            availableFileSource.Source = availableFiles;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -89,10 +92,12 @@ namespace MiniTorrent_GUI
             if (!validateFileRequest(file))
                 return;
 
-           // List<IpPort> ipPortList = client.
+            string serializedIpPortList = client.GetIpListForAFile(file.Name);
+            List<IpPort> ipPortList = JsonConvert.DeserializeObject<List<IpPort>>(serializedIpPortList);
 
-            //ClientTask download = new ClientTask (
-            
+            //ClientTask download = new ClientTask (file, ipPortList, connectionDetails);
+            RequestFileLabel.Content = $"{file.Name}, {file.Size} MB, request flow got to client Task";
+
         }
 
         private bool validateFileRequest(FileDetails file)

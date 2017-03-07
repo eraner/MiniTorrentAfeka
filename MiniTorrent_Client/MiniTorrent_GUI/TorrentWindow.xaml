@@ -7,9 +7,10 @@
         mc:Ignorable="d"
         Title="TorrentWindow" Height="300" Width="547.598" Closing="Window_Closing" MinWidth="1000" MinHeight="500" WindowStartupLocation="CenterOwner">
     <Window.Resources>
-        <CollectionViewSource x:Key="ItemCollectionViewSource" CollectionViewType="ListCollectionView"/>
-        <SolidColorBrush x:Key="PrimaryBrush" Color="#FF4169AA" />
-        <SolidColorBrush x:Key="PrimaryFont" Color="White" />
+        <CollectionViewSource x:Key="AvailableFileSource" CollectionViewType="ListCollectionView"/>
+        <CollectionViewSource x:Key="DownloadedFileSource" CollectionViewType="ListCollectionView"/>
+        <SolidColorBrush x:Key="PrimaryBrush1" Color="#FF4169AA" />
+        <SolidColorBrush x:Key="PrimaryFont1" Color="White" />
     </Window.Resources>
     <Window.BorderBrush>
         <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}"/>
@@ -23,8 +24,8 @@
             </DataGrid.RowBackground>
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
-                    <Setter Property="Foreground" Value="{StaticResource PrimaryFont}" />
+                    <Setter Property="Background" Value="{StaticResource PrimaryBrush1}"/>
+                    <Setter Property="Foreground" Value="{StaticResource PrimaryFont1}" />
                     <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
             </DataGrid.ColumnHeaderStyle>
@@ -37,7 +38,16 @@
                 <Button x:Name="RequestAFileButton" Margin="5" Content="Request a file" Click="RequestAFileButton_Click" FontSize="16"/>
             </StackPanel>
         </Border>
-        <Label x:Name="RequestFileLabel" Content="Label" HorizontalAlignment="Left" Margin="18,435,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="RequestFileLabel" Content="Label" HorizontalAlignment="Left" Margin="18,435,0,0" VerticalAlignment="Bottom"/>
+
+        <Border Margin="20" Padding="3" Background="GhostWhite" 
+          BorderBrush="SteelBlue" BorderThickness="1" CornerRadius="3" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            <DataGrid x:Name="DownloadingFilesDatagrid" AutoGenerateColumns="True" Margin="10,10,10,0" HorizontalAlignment="Stretch" 
+                      VerticalAlignment="Top" HorizontalContentAlignment="Stretch" FontSize="16" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding}">
+                
+            </DataGrid>
+        </Border>
+        
     </Grid>
 
     
