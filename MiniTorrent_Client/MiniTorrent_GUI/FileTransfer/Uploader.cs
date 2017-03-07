@@ -25,13 +25,16 @@ namespace MiniTorrent_GUI
 
         private void startNewClient()
         {
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[50000];
             NetworkStream stream = clientSocket.GetStream();
 
             //Reading file details from client.
             stream.Read(buffer, 0, buffer.Length);
+            
             string jsonString = Encoding.ASCII.GetString(buffer);
-            FileDataContract fileDetails = (FileDataContract)JsonConvert.DeserializeObject(jsonString);
+            //int pos = jsonString.IndexOf('}');
+            //jsonString = jsonString.Substring(0, pos+1);
+            FileDataContract fileDetails = JsonConvert.DeserializeObject<FileDataContract>(jsonString);
             uploadFile(stream, fileDetails);
         }
 
@@ -44,6 +47,7 @@ namespace MiniTorrent_GUI
             FileInfo fileToSend = new FileInfo(connDetails.PublishedFilesSource + "\\" + fileDetails.Filename);
 
             FileStream fileStream = new FileStream(fileToSend.FullName, FileMode.Open, FileAccess.Read);
+            fileStream.Seek(startByte, 0);
 
             int byteCount = 0;
 
@@ -51,12 +55,12 @@ namespace MiniTorrent_GUI
             {
                 if (endByte - startByte >= fileBuffer.Length)
                 {
-                    fileStream.Read(fileBuffer, startByte, fileBuffer.Length);
+                    fileStream.Read(fileBuffer, 0, fileBuffer.Length);
                     byteCount = fileBuffer.Length;
                 }
                 else
                 {
-                    fileStream.Read(fileBuffer, startByte, endByte - startByte);
+                    fileStream.Read(fileBuffer, 0, endByte - startByte);
                     byteCount = endByte - startByte;
                 }
 
