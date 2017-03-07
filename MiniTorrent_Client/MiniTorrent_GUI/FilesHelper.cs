@@ -10,8 +10,8 @@ namespace MiniTorrent_GUI
 {
     class FilesHelper
     {
-        private const long ONE_KB = 1024;
-        private const long ONE_MB = ONE_KB * 1024;
+        public const long ONE_KB = 1024;
+        public const long ONE_MB = ONE_KB * 1024;
 
         public static List<FileDetails> getFilesList(string source)
         {

@@ -62,11 +62,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ClientTask.cs" />
+    <Compile Include="FileTransfer\ClientTask.cs" />
     <Compile Include="ConnectionDetails.cs" />
     <Compile Include="FilesHelper.cs" />
     <Compile Include="FileDataContract.cs" />
-    <Compile Include="ServerTask.cs" />
+    <Compile Include="FileTransfer\Downloader.cs" />
+    <Compile Include="FileTransfer\ServerTask.cs" />
+    <Compile Include="FileTransfer\Uploader.cs" />
     <Compile Include="Service References\MediationReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
