@@ -64,7 +64,7 @@
     </ApplicationDefinition>
     <Compile Include="FileTransfer\ClientTask.cs" />
     <Compile Include="ConnectionDetails.cs" />
-    <Compile Include="DownloadedFileItem.cs" />
+    <Compile Include="DownloadingFileItem.cs" />
     <Compile Include="FilesHelper.cs" />
     <Compile Include="FileDataContract.cs" />
     <Compile Include="FileTransfer\Downloader.cs" />
