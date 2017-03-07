@@ -98,7 +98,7 @@ namespace MiniTorrent_GUI
             List<IpPort> ipPortList = JsonConvert.DeserializeObject<List<IpPort>>(serializedIpPortList);
 
             ClientTask download = new ClientTask(ipPortList, file, connectionDetails);
-            RequestFileLabel.Content = $"{file.Name}, {file.Size} MB, request flow got to client Task";
+            RequestFileLabel.Content = file.Name+ ", " + file.Size + " MB, request flow got to client Task";
 
         }
 
@@ -120,8 +120,8 @@ namespace MiniTorrent_GUI
                 return false;
             }
             FileDetails requestedFile = JsonConvert.DeserializeObject<FileDetails>(fileDetailsString);
-            string msg = $"Please be advise you are going to download the following file:\nFile Name: {requestedFile.Name}.\nSize: {requestedFile.Size} MB.\n" +
-                $"Number of Users: {requestedFile.Count}.\n\nAre you sure you want to proceed?";
+            string msg = "Please be advise you are going to download the following file:\nFile Name: " +requestedFile.Name +".\nSize: {requestedFile.Size} MB.\n" +
+                "Number of Users:"+ requestedFile.Count +" .\n\nAre you sure you want to proceed?";
             if (MessageBoxResult.Cancel ==  showMessageBox(msg, NOTICE))
             {
                 //User selected to cancel the download.
@@ -143,19 +143,20 @@ namespace MiniTorrent_GUI
 
             if (ownedFilesList.Exists(f => f.Name == file.Name))
             {
-                MessageBox.Show($"The file: \"{file.Name}\", alreadly exists on your computer.\n"
-                    + $"Please check: {connectionDetails.PublishedFilesSource}","File Exist", MessageBoxButton.OK);
+                MessageBox.Show("The file: \"" +file.Name +"\", alreadly exists on your computer.\n"
+                    + "Please check:" + connectionDetails.PublishedFilesSource + "\"","File Exist", MessageBoxButton.OK);
                 return true;
             }
 
             if (downloadedFilesList.Exists(f => f.Name == file.Name))
             {
-                MessageBox.Show($"The file: \"{file.Name}\", alreadly exists on your computer.\n"
-                    + $"Please check: {connectionDetails.DownloadedFilesDestination}");
+                MessageBox.Show("The file: \"" +file.Name+ "\", alreadly exists on your computer.\n"
+                    + "Please check:" + connectionDetails.DownloadedFilesDestination +"\"");
                 return true;
             }
 
             return false;
+
         }
 
         private void RequestAFileButton_Click(object sender, RoutedEventArgs e)
