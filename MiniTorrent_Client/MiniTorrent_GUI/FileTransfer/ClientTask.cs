@@ -11,9 +11,9 @@ using MiniTorrent_MediationServerContract;
 
 namespace MiniTorrent_GUI
 {
-    class ClientTask
+    public class ClientTask
     {
-        private object locker;
+        private object locker = null;
         private byte[] fileBuffer;
         private int numOfPeers;
         private int totalSizeInBytes;

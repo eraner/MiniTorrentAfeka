@@ -24,9 +24,10 @@ namespace MiniTorrent_GUI
         private string localIP;
         private List<FileDetails> availableFiles;
         private CollectionViewSource availableFileSource;
+        private List<DownloadingFileItem> downloadingFileList;
+        private CollectionViewSource downloadingFileSource;
         private List<FileDetails> ownedFilesList;
-        private List<DownloadedFileItem> downloadedFilesList;
-        private CollectionViewSource downloadedFileSource;
+        private List<FileDetails> downloadedFilesList;
 
 
         public TorrentWindow(MediationReference.MediationServerContractClient client, ConnectionDetails details, string localIP)
@@ -42,10 +43,11 @@ namespace MiniTorrent_GUI
             availableFileSource = (CollectionViewSource)(FindResource("AvailableFileSource"));
             availableFileSource.Source = availableFiles;
             updateAvailableFiles();
-            downloadedFileSource = (CollectionViewSource)(FindResource("DownloadedFileSource"));
-             
+            downloadingFileSource = (CollectionViewSource)(FindResource("DownloadingFileSource"));
+            //TODO
             updateDownloadingFiles();
 
+            ServerTask serverTask = new ServerTask(connectionDetails);
         }
 
         private void updateDownloadingFiles()
@@ -95,7 +97,7 @@ namespace MiniTorrent_GUI
             string serializedIpPortList = client.GetIpListForAFile(file.Name);
             List<IpPort> ipPortList = JsonConvert.DeserializeObject<List<IpPort>>(serializedIpPortList);
 
-            //ClientTask download = new ClientTask (file, ipPortList, connectionDetails);
+            ClientTask download = new ClientTask(ipPortList, file, connectionDetails);
             RequestFileLabel.Content = $"{file.Name}, {file.Size} MB, request flow got to client Task";
 
         }

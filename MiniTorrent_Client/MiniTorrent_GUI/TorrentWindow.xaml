@@ -8,7 +8,7 @@
         Title="TorrentWindow" Height="300" Width="547.598" Closing="Window_Closing" MinWidth="1000" MinHeight="500" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <CollectionViewSource x:Key="AvailableFileSource" CollectionViewType="ListCollectionView"/>
-        <CollectionViewSource x:Key="DownloadedFileSource" CollectionViewType="ListCollectionView"/>
+        <CollectionViewSource x:Key="DownloadingFileSource" CollectionViewType="ListCollectionView"/>
         <SolidColorBrush x:Key="PrimaryBrush1" Color="#FF4169AA" />
         <SolidColorBrush x:Key="PrimaryFont1" Color="White" />
     </Window.Resources>
