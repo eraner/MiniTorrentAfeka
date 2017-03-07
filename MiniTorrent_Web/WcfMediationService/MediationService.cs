@@ -105,7 +105,7 @@ namespace WcfMediationService
             if (dbHelper == null)
                 dbHelper = new DBHelper();
 
-            List<string> allIps = dbHelper.GetFileIPs(filename);
+            List<IpPort> allIps = dbHelper.GetFileIPs(filename);
             return JsonConvert.SerializeObject(allIps);
         }
     }  
