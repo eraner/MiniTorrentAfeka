@@ -54,7 +54,7 @@ namespace MiniTorrent_GUI
 
         public void UpdateFinalFileBuffer (byte[] buffer, int startIndex, int size)
         {
-            lock (locker)
+            //lock (locker) //TODO
             {
                 Array.Copy(buffer, 0, fileBuffer, startIndex, size);
                 bytesReceived += size;
