@@ -58,6 +58,14 @@ namespace MiniTorrent_MediationServerContract
         /// <returns></returns>
         [OperationContract]
         string GetIpListForAFile(string filename);
+
+        /// <summary>
+        /// gets jsonString which is a JsonItems contains IP and list of files.
+        /// </summary>
+        /// <param name="jsonString"></param>
+        /// <returns></returns>
+        [OperationContract]
+        bool UpdateUserFiles(string jsonString);
     }
 
     public class JsonItems
