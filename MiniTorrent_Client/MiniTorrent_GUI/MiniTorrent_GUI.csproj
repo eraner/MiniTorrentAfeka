@@ -119,13 +119,13 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\MediationReference\item.xsd">
+    <None Include="Service References\MediationReference\service.wsdl" />
+    <None Include="Service References\MediationReference\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\MediationReference\item1.xsd">
+    <None Include="Service References\MediationReference\service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\MediationReference\MediationService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -135,9 +135,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\MediationReference\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\MediationReference\item.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\MediationReference\configuration91.svcinfo" />

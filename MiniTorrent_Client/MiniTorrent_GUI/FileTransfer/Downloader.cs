@@ -42,7 +42,8 @@ namespace MiniTorrent_GUI
             { 
                 Filename = fileInfo.Name,
                 StartByte = bytesStart,
-                EndByte = bytesEnd
+                EndByte = bytesEnd,
+                TotalFileSizeInBytes = (int)(fileInfo.Size*FilesHelper.ONE_MB)
             };
 
             Thread thread = new Thread(startNewDownlaod);
