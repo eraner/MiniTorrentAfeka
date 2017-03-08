@@ -14,9 +14,9 @@ namespace MiniTorrent_GUI
     public partial class TorrentWindow : Window
     {
         #region Constants
-        public const string FAILURE = "Failure";
-        public const string NOTICE = "Notice";
-        public const string SERVER_MISSING_FILES = "ERROR:\nThe server couldn't find the file you are requsting.\nThe download will be canceled.";
+        public const string Failure = "Failure";
+        public const string Notice = "Notice";
+        public const string ServerMissingFiles = "ERROR:\nThe server couldn't find the file you are requsting.\nThe download will be canceled.";
         #endregion
 
         private MediationReference.MediationServerContractClient client;
@@ -44,15 +44,23 @@ namespace MiniTorrent_GUI
             availableFileSource.Source = availableFiles;
             updateAvailableFiles();
             downloadingFileSource = (CollectionViewSource)(FindResource("DownloadingFileSource"));
-            //TODO
-           // updateDownloadingFiles();
+            downloadingFileSource.Source = downloadedFilesList;
+            updateDownloadingFiles();
 
             ServerTask serverTask = new ServerTask(connectionDetails, localIP);
         }
 
         private void updateDownloadingFiles()
         {
-            throw new NotImplementedException();
+            downloadingFileList = new List<DownloadingFileItem>();
+            downloadingFileList.Add(new DownloadingFileItem
+            {
+                Filename= "abc",
+                Size = 20.2f,
+                StartedTime = DateTime.Now,
+                Percentage = 0
+            });
+            downloadingFileSource.Source = downloadingFileList;
         }
 
         private void updateAvailableFiles()
@@ -97,7 +105,15 @@ namespace MiniTorrent_GUI
             string serializedIpPortList = client.GetIpListForAFile(file.Name);
             List<IpPort> ipPortList = JsonConvert.DeserializeObject<List<IpPort>>(serializedIpPortList);
 
-            ClientTask download = new ClientTask(ipPortList, file, connectionDetails);
+            DownloadingFileItem downloadingFile = new DownloadingFileItem
+            {
+                Filename = file.Name,
+                Size =  file.Size,
+                StartedTime = DateTime.Now,
+                Percentage = 0
+            };
+
+            ClientTask download = new ClientTask(ipPortList, file, connectionDetails, downloadingFile);
             RequestFileLabel.Content = file.Name+ ", " + file.Size + " MB, request flow got to client Task";
 
         }
@@ -116,13 +132,13 @@ namespace MiniTorrent_GUI
             string fileDetailsString = client.RequestAFile(JsonConvert.SerializeObject(j));
             if (string.IsNullOrEmpty(fileDetailsString))
             {
-                showMessageBox(SERVER_MISSING_FILES, FAILURE);
+                showMessageBox(ServerMissingFiles, Failure);
                 return false;
             }
             FileDetails requestedFile = JsonConvert.DeserializeObject<FileDetails>(fileDetailsString);
             string msg = "Please be advise you are going to download the following file:\nFile Name: " +requestedFile.Name +".\nSize: {requestedFile.Size} MB.\n" +
                 "Number of Users:"+ requestedFile.Count +" .\n\nAre you sure you want to proceed?";
-            if (MessageBoxResult.Cancel ==  showMessageBox(msg, NOTICE))
+            if (MessageBoxResult.Cancel ==  showMessageBox(msg, Notice))
             {
                 //User selected to cancel the download.
                 return false;

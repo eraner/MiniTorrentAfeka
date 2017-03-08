@@ -13,15 +13,16 @@ namespace MiniTorrent_GUI
 {
     public class ClientTask
     {
-        private object locker = null;
+        private Object locker = new Object();
         private byte[] fileBuffer;
         private int numOfPeers;
         private int totalSizeInBytes;
         private int bytesReceived;
         private FileDetails fileInfo;
         private ConnectionDetails connDetails;
+        private DownloadingFileItem downloadingFileItem;
 
-        public ClientTask(List<IpPort> ipList, FileDetails fileInfo, ConnectionDetails connDetails)
+        public ClientTask(List<IpPort> ipList, FileDetails fileInfo, ConnectionDetails connDetails, DownloadingFileItem downloadingFileItem)
         {
             bytesReceived = 0;
             numOfPeers = ipList.Count;
@@ -31,6 +32,7 @@ namespace MiniTorrent_GUI
 
             this.fileInfo = fileInfo;
             this.connDetails = connDetails;
+            this.downloadingFileItem = downloadingFileItem;
 
             requestFromPeers(ipList);
         }
@@ -48,13 +50,13 @@ namespace MiniTorrent_GUI
                 int bytesStart = counterBytes;
                 int bytesEnd = i != (numOfPeers-1)? bytesPerPeer : totalSizeInBytes;
 
-                Downloader downloader = new Downloader(socket, bytesStart, bytesEnd, fileInfo, this);
+                Downloader downloader = new Downloader(socket, bytesStart, bytesEnd, fileInfo, this, downloadingFileItem);
             }
         }
 
         public void UpdateFinalFileBuffer (byte[] buffer, int startIndex, int size)
         {
-            //lock (locker) //TODO
+            lock (locker) 
             {
                 Array.Copy(buffer, 0, fileBuffer, startIndex, size);
                 bytesReceived += size;

@@ -42,10 +42,9 @@
 
         <Border Margin="20" Padding="3" Background="GhostWhite" 
           BorderBrush="SteelBlue" BorderThickness="1" CornerRadius="3" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-            <DataGrid x:Name="DownloadingFilesDatagrid" AutoGenerateColumns="True" Margin="10,10,10,0" HorizontalAlignment="Stretch" 
-                      VerticalAlignment="Top" HorizontalContentAlignment="Stretch" FontSize="16" SelectionMode="Single" IsReadOnly="True" ItemsSource="{Binding}">
-                
-            </DataGrid>
+            <DataGrid x:Name="DownloadingFilesDatagrid" AutoGenerateColumns="True" Margin="10,10,10,10" HorizontalAlignment="Stretch" 
+                      VerticalAlignment="Top" HorizontalContentAlignment="Stretch" FontSize="16"  ColumnWidth="*" SelectionMode="Single" DataContext="{StaticResource DownloadingFileSource}" 
+                      ItemsSource="{Binding}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" MaxWidth="800" MaxHeight="300"/>
         </Border>
         
     </Grid>

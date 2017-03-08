@@ -13,6 +13,8 @@ namespace MiniTorrent_GUI
 {
     public class Downloader
     {
+        public static Object locker = new Object();
+
         private TcpClient socket;
         private int bytesStart;
         private int bytesEnd;
@@ -22,13 +24,15 @@ namespace MiniTorrent_GUI
         private FileDataContract dataContract;
         private ClientTask clientTask;
         private byte[] generalBuffer;
+        private DownloadingFileItem downloadingFileItem;
 
-        public Downloader(TcpClient socket, int bytesStart, int bytesEnd, FileDetails fileInfo, ClientTask clientTask)
+        public Downloader(TcpClient socket, int bytesStart, int bytesEnd, FileDetails fileInfo, ClientTask clientTask, DownloadingFileItem downloadingFileItem)
         {
             this.socket = socket;
             this.bytesStart = bytesStart;
             this.bytesEnd = bytesEnd;
             this.fileInfo = fileInfo;
+            this.downloadingFileItem = downloadingFileItem;
             receivedBytes = 0;
             totalBytes = bytesEnd - bytesStart;
             generalBuffer = new byte[totalBytes];
@@ -67,10 +71,19 @@ namespace MiniTorrent_GUI
 
                 Array.Copy(buffer, 0, generalBuffer, receivedBytes, count);
                 receivedBytes += count;
+                updatePersentage(count);
             }
             submitFinalBuffer();
             stream.Close();
             socket.Close();
+        }
+
+        private void updatePersentage(int count)
+        {
+            lock (locker)
+            {
+                downloadingFileItem.Percentage += (float)(count / dataContract.TotalFileSizeInBytes);
+            }
         }
 
         private void submitFinalBuffer()

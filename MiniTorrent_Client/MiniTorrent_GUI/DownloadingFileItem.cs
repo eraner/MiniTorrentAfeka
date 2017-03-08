@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MiniTorrent_GUI
 {
-    class DownloadingFileItem
+    public class DownloadingFileItem
     {
         public string Filename { get; set; }
         public float Size { get; set; }
