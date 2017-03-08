@@ -81,14 +81,17 @@ namespace DatabaseHelper
 
         public bool AddFiles(List<FileDetails> files, string ip)
         {
-            foreach(FileDetails file in files)
+            ClearUserFiles(ip);
+            foreach (FileDetails file in files)
             {
-                linq_DB.Files.InsertOnSubmit(new File
+                
+                File current = new File
                 {
                     name = file.Name,
                     size = file.Size,
                     userIP = ip
-                });
+                };
+                linq_DB.Files.InsertOnSubmit(current);
             }
             try
             {

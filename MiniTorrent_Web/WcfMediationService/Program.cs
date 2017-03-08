@@ -11,7 +11,8 @@ namespace WcfMediationService
             {
                 host.Open();
                 Console.WriteLine("Mediation server strated...");
-                Console.ReadLine();
+                Console.ReadLine(); 
+                
             }
         }
 

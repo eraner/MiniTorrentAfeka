@@ -11,18 +11,20 @@ namespace WcfMediationService
     public class MediationService : IMediationServerContract
     {
         private DBHelper dbHelper;
+        public DBHelper DbHelper { get
+            { return (dbHelper == null) ? dbHelper = new DBHelper() : dbHelper; }
+        }
 
         public bool SingIn(string jsonString)
         {
             JsonItems items = JsonConvert.DeserializeObject<JsonItems>(jsonString);
-            dbHelper = new DBHelper();
 
             string username = items.Username;
             string password = items.Password;
             if (!Authenticate(username, password))
                 return false;
 
-            if (dbHelper.IsAlreadySignedIn(username))
+            if (DbHelper.IsAlreadySignedIn(username))
                 return false;
 
             try
@@ -33,8 +35,8 @@ namespace WcfMediationService
                 string port = items.Port;
 
                 /*adding user and files to the database.*/
-                dbHelper.SignInUser(username, ip, port);
-                dbHelper.AddFiles(userFiles, ip);
+                DbHelper.SignInUser(username, ip, port);
+                DbHelper.AddFiles(userFiles, ip);
             }
             catch
             {
@@ -48,26 +50,21 @@ namespace WcfMediationService
 
         public bool Authenticate(string username, string password)
         {
-            if (dbHelper == null)
-                dbHelper = new DBHelper();
-
-            return dbHelper.ContainsUsernamePassword(username, password);
+            return DbHelper.ContainsUsernamePassword(username, password);
         }
 
         public string RequestAFile(string jsonString)
         {
             JsonItems items = JsonConvert.DeserializeObject<JsonItems>(jsonString);
-            if (dbHelper == null)
-                dbHelper = new DBHelper();
 
             if (!Authenticate(items.Username, items.Password) || (items.AllFiles.Count != 1))
                 return string.Empty;
 
             FileDetails file = items.AllFiles[0];
-            if (!dbHelper.ContainsFile(file.Name))
+            if (!DbHelper.ContainsFile(file.Name))
                 return string.Empty;
 
-            FileDetails details = dbHelper.GetFileInfo(file.Name);
+            FileDetails details = DbHelper.GetFileInfo(file.Name);
 
             return JsonConvert.SerializeObject(details);
         }
@@ -75,16 +72,14 @@ namespace WcfMediationService
         public bool SignOut(string jsonString)
         {
             JsonItems items = JsonConvert.DeserializeObject<JsonItems>(jsonString);
-            if (dbHelper == null)
-                dbHelper = new DBHelper();
 
             if (!Authenticate(items.Username, items.Password))
                 return false;
 
-            if (!dbHelper.SignoutUser(items.Username))
+            if (!DbHelper.SignoutUser(items.Username))
                 return false;
 
-            if (!dbHelper.ClearUserFiles(items.Ip))
+            if (!DbHelper.ClearUserFiles(items.Ip))
                 return false;
 
             return true;
@@ -92,21 +87,22 @@ namespace WcfMediationService
 
         public string GetAvailableFiles()
         {
-            if (dbHelper == null)
-                dbHelper = new DBHelper();
-
-            List<FileDetails> allFiles = dbHelper.GetFilesDetailsList();
+            List<FileDetails> allFiles = DbHelper.GetFilesDetailsList();
 
             return JsonConvert.SerializeObject(allFiles);
         }
 
         public string GetIpListForAFile(string filename)
         {
-            if (dbHelper == null)
-                dbHelper = new DBHelper();
-
-            List<IpPort> allIps = dbHelper.GetFileIPs(filename);
+            List<IpPort> allIps = DbHelper.GetFileIPs(filename);
             return JsonConvert.SerializeObject(allIps);
+        }
+
+        public bool UpdateUserFiles(string jsonString)
+        { 
+            JsonItems items = JsonConvert.DeserializeObject<JsonItems>(jsonString);
+
+            return DbHelper.AddFiles(items.AllFiles, items.Ip);
         }
     }  
 }

@@ -80,7 +80,21 @@ namespace MiniTorrent_GUI
 
         private void UpdateFilesButton_Click(object sender, RoutedEventArgs e)
         {
+            sendMyFilesToDB();
             updateAvailableFiles();
+        }
+
+        private void sendMyFilesToDB()
+        {
+            List<FileDetails> filesList = FilesHelper.getFilesList(connectionDetails.PublishedFilesSource);
+            JsonItems jsonItems = new JsonItems
+            {
+                Ip = localIP,
+                AllFiles = filesList
+            };
+            string toSend = JsonConvert.SerializeObject(jsonItems);
+
+            client.UpdateUserFiles(toSend);
         }
 
         private void requestAFile(string fileName)
