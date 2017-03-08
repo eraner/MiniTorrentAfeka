@@ -39,12 +39,12 @@ namespace MiniTorrent_GUI
             this.localIP = localIP;
 
             
-            //CollectionViewSource itemCollectionViewSource;
             availableFileSource = (CollectionViewSource)(FindResource("AvailableFileSource"));
             availableFileSource.Source = availableFiles;
             updateAvailableFiles();
+            downloadingFileList = new List<DownloadingFileItem>();
             downloadingFileSource = (CollectionViewSource)(FindResource("DownloadingFileSource"));
-            downloadingFileSource.Source = downloadedFilesList;
+            downloadingFileSource.Source = downloadingFileList;
             updateDownloadingFiles();
 
             ServerTask serverTask = new ServerTask(connectionDetails, localIP);
@@ -52,14 +52,6 @@ namespace MiniTorrent_GUI
 
         private void updateDownloadingFiles()
         {
-            downloadingFileList = new List<DownloadingFileItem>();
-            downloadingFileList.Add(new DownloadingFileItem
-            {
-                Filename= "abc",
-                Size = 20.2f,
-                StartedTime = DateTime.Now,
-                Percentage = 0
-            });
             downloadingFileSource.Source = downloadingFileList;
         }
 
@@ -93,7 +85,6 @@ namespace MiniTorrent_GUI
 
         private void requestAFile(string fileName)
         {
-            RequestFileLabel.Content = fileName;
             FileDetails file = availableFiles.Find(f => f.Name == fileName);
 
             if (fileExistsOnComputer(file))
@@ -114,8 +105,9 @@ namespace MiniTorrent_GUI
             };
 
             ClientTask download = new ClientTask(ipPortList, file, connectionDetails, downloadingFile);
-            RequestFileLabel.Content = file.Name+ ", " + file.Size + " MB, request flow got to client Task";
-
+            downloadingFileList.Add(downloadingFile);
+            updateDownloadingFiles();
+            RequestFileLabel.Content = file.Name+ ", " + file.Size + " MB, started downloading.";
         }
 
         private bool validateFileRequest(FileDetails file)

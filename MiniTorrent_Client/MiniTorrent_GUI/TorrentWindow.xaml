@@ -17,7 +17,8 @@
     </Window.BorderBrush>
 
     <Grid>
-        <DataGrid x:Name="AvailableFileDataGrid" AutoGenerateColumns="True" Margin="10,10,10,0" HorizontalAlignment="Stretch"  VerticalAlignment="Top" HorizontalContentAlignment="Stretch" 
+        <DataGrid x:Name="AvailableFileDataGrid" AutoGenerateColumns="True" Margin="10,10,10,0" HorizontalAlignment="Stretch"  VerticalAlignment="Top" HorizontalContentAlignment="Stretch" MaxHeight="300
+                  "
                   ColumnWidth="*" DataContext="{StaticResource AvailableFileSource}" ItemsSource="{Binding}" FontSize="16" SelectionMode="Single" VerticalScrollBarVisibility="Visible" IsReadOnly="True" >
             <DataGrid.RowBackground>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionColorKey}}"/>
@@ -38,13 +39,28 @@
                 <Button x:Name="RequestAFileButton" Margin="5" Content="Request a file" Click="RequestAFileButton_Click" FontSize="16"/>
             </StackPanel>
         </Border>
-        <Label x:Name="RequestFileLabel" Content="Label" HorizontalAlignment="Left" Margin="18,435,0,0" VerticalAlignment="Bottom"/>
+        <Label x:Name="RequestFileLabel" Content="" HorizontalAlignment="Left" Margin="18,435,0,0" VerticalAlignment="Bottom"/>
 
         <Border Margin="20" Padding="3" Background="GhostWhite" 
           BorderBrush="SteelBlue" BorderThickness="1" CornerRadius="3" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-            <DataGrid x:Name="DownloadingFilesDatagrid" AutoGenerateColumns="True" Margin="10,10,10,10" HorizontalAlignment="Stretch" 
+            <DataGrid x:Name="DownloadingFilesDatagrid" AutoGenerateColumns="False" Margin="10,10,10,10" HorizontalAlignment="Stretch" 
                       VerticalAlignment="Top" HorizontalContentAlignment="Stretch" FontSize="16"  ColumnWidth="*" SelectionMode="Single" DataContext="{StaticResource DownloadingFileSource}" 
-                      ItemsSource="{Binding}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" MaxWidth="800" MaxHeight="300"/>
+                      ItemsSource="{Binding}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" MaxWidth="800" MaxHeight="300">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="FileName" Binding="{Binding Path=Filename}" />
+                    <DataGridTextColumn Header="FileSize" Binding="{Binding Path=Size}"/>
+                    <DataGridTemplateColumn Header="Progress">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ProgressBar Name="PercentagePB" Value="{Binding Path=Percentage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Minimum="0" Maximum="100" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTextColumn Header="StartTime" MaxWidth="110" Binding="{Binding StartedTime, StringFormat=\{0:dd.MM.yy HH:mm\}}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="EndTime" MaxWidth="110" Binding="{Binding EndedTime, StringFormat=\{0:dd.MM.yy HH:mm\}, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
         </Border>
         
     </Grid>
