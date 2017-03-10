@@ -28,6 +28,7 @@ namespace MiniTorrent_GUI
         private CollectionViewSource downloadingFileSource;
         private List<FileDetails> ownedFilesList;
         private List<FileDetails> downloadedFilesList;
+        private ServerTask serverTask;
 
 
         public TorrentWindow(MediationReference.MediationServerContractClient client, ConnectionDetails details, string localIP)
@@ -47,7 +48,7 @@ namespace MiniTorrent_GUI
             downloadingFileSource.Source = downloadingFileList;
             updateDownloadingFiles();
 
-            ServerTask serverTask = new ServerTask(connectionDetails, localIP);
+            serverTask = new ServerTask(connectionDetails, localIP);
         }
 
         private void updateDownloadingFiles()
@@ -71,6 +72,7 @@ namespace MiniTorrent_GUI
                 Ip = localIP
             };
             bool succeded = client.SignOut(JsonConvert.SerializeObject(json));
+            serverTask.CloseConnection();
             if (!succeded)
             {
                 MessageBox.Show("Failed to Sing Out properly.\nPlease check your connection.","Failure to close", MessageBoxButton.OK, MessageBoxImage.Error);
