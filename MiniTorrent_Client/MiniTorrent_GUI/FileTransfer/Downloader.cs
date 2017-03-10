@@ -63,7 +63,7 @@ namespace MiniTorrent_GUI
 
         private void beginReceive(NetworkStream stream)
         {
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[TorrentWindow.BufferSize];
             int count;
 
             while (receivedBytes < totalBytes)
@@ -83,7 +83,7 @@ namespace MiniTorrent_GUI
         {
             lock (locker)
             {
-                downloadingFileItem.Percentage += (float)(count / dataContract.TotalFileSizeInBytes);
+                downloadingFileItem.Percentage += (double)(count / dataContract.TotalFileSizeInBytes);
             }
         }
 

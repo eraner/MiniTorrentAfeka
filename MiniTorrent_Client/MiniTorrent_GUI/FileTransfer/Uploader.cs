@@ -25,7 +25,7 @@ namespace MiniTorrent_GUI
 
         private void startNewClient()
         {
-            byte[] buffer = new byte[50000];
+            byte[] buffer = new byte[TorrentWindow.BufferSize];
             NetworkStream stream = clientSocket.GetStream();
 
             //Reading file details from client.
@@ -40,7 +40,7 @@ namespace MiniTorrent_GUI
 
         private async void uploadFile(NetworkStream stream, FileDataContract fileDetails)
         {
-            byte[] fileBuffer = new byte[1024];
+            byte[] fileBuffer = new byte[TorrentWindow.BufferSize];
             int startByte = fileDetails.StartByte;
             int endByte = fileDetails.EndByte;
 

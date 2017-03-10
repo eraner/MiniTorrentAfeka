@@ -9,7 +9,7 @@ namespace MiniTorrent_GUI
 {
     public class DownloadingFileItem : INotifyPropertyChanged
     {
-        private float mPercentage;
+        private double mPercentage;
         private DateTime mEndedTime;
 
         public string Filename { get; set; }
@@ -24,7 +24,7 @@ namespace MiniTorrent_GUI
                 OnPropertyChanged("EndedTime");
             }
         }
-        public float Percentage 
+        public double Percentage 
         {
             get { return mPercentage; }
             set
