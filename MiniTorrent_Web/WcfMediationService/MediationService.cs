@@ -11,8 +11,11 @@ namespace WcfMediationService
     public class MediationService : IMediationServerContract
     {
         private DBHelper dbHelper;
-        public DBHelper DbHelper { get
-            { return (dbHelper == null) ? dbHelper = new DBHelper() : dbHelper; }
+        public DBHelper DbHelper {
+            get
+            {
+                return (dbHelper == null) ? dbHelper = new DBHelper() : dbHelper;
+            }
         }
 
         public bool SingIn(string jsonString)
@@ -43,8 +46,6 @@ namespace WcfMediationService
                 return false;
             }
 
-            //NOTIFY OTHER CLIENTS FOR A CHANGE!!
-            
             return true;
         }
 

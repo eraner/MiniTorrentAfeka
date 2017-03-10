@@ -72,7 +72,13 @@ namespace MiniTorrent_GUI
 
         private void writeFinalFile()
         {
-            string path = connDetails.DownloadedFilesDestination + "\\" + fileInfo.Name;
+
+            string dir = connDetails.DownloadedFilesDestination + "\\";
+            string path = dir + fileInfo.Name;
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
             File.WriteAllBytes(path, fileBuffer);
 
             downloadingFileItem.EndedTime = DateTime.Now;
