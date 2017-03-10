@@ -214,5 +214,35 @@ namespace DatabaseHelper
                            where signed.username == username
                         select signed).Count() >= 1;
         }
+
+        public bool ValidateAdmin(string adminname, string password)
+        {
+            return linq_DB.Admins.Contains(new Admin
+            {
+                Adminname = adminname,
+                Password = password
+            });
+        }
+
+        public bool RemoveUser(string username)
+        {
+            var query = linq_DB.Users.Where(u => u.Username == username);
+            int count = query.Count();
+            if (count > 1 || count == 0)
+                return false;
+
+            User userToDelete = query.First();
+            linq_DB.Users.DeleteOnSubmit(userToDelete);
+            try
+            {
+                linq_DB.SubmitChanges();
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
