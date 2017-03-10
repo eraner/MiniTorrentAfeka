@@ -13,7 +13,7 @@ namespace MiniTorrent_GUI
 {
     public class Downloader
     {
-        public static Object locker = new Object();
+        public Object locker = new Object();
 
         private TcpClient socket;
         private int bytesStart;
@@ -83,7 +83,10 @@ namespace MiniTorrent_GUI
         {
             lock (locker)
             {
-                downloadingFileItem.Percentage += (double)(count / dataContract.TotalFileSizeInBytes);
+                downloadingFileItem.Percentage += (double)((double)count / (double)dataContract.TotalFileSizeInBytes)*100;
+                //if (downloadingFileItem.Percentage >= 100)
+                //    return;
+                //downloadingFileItem.Percentage += 1;
             }
         }
 

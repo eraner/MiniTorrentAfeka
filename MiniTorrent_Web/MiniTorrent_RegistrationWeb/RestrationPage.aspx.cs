@@ -56,5 +56,10 @@ namespace MiniTorrent_RegistrationWeb
         {
             InternalErrorLabel.Text = message;
         }
+
+        protected void AdminButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AdminLogin.aspx");
+        }
     }
 }

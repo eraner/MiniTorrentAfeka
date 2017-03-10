@@ -41,21 +41,14 @@
                 </asp:TableCell>
                 <asp:TableCell>
         <asp:TextBox ID="ConfirmPasswordTextBox" runat="server" />
-                </asp:TableCell>
-                <asp:TableCell>
+                </asp:TableCell><asp:TableCell>
         <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="Passwords fields do not match." Font-Italic="False" ControlToCompare="PasswordTextBox" ControlToValidate="ConfirmPasswordTextBox"></asp:CompareValidator>
-                </asp:TableCell>
-                 </asp:TableRow>
-        </asp:Table>
-        <br />
+                </asp:TableCell></asp:TableRow></asp:Table><br />
         <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
         <br />
         <asp:Button ID="SubmitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click"/>
         <br />
-        <asp:Label ID="InternalErrorLabel" runat="server" Font-Bold="True" ForeColor="Red"></asp:Label>
-
-    
-        <br />
+        <asp:Label ID="InternalErrorLabel" runat="server" Font-Bold="True" ForeColor="Red"></asp:Label><br /><br /><asp:Button ID="AdminButton" runat="server" OnClick="AdminButton_Click" Text="Admin Login" /><br />
         
     
     </div>
