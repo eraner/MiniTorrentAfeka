@@ -72,7 +72,7 @@ namespace MiniTorrent_GUI
                 Ip = localIP
             };
             bool succeded = client.SignOut(JsonConvert.SerializeObject(json));
-            serverTask.CloseConnection();
+           // serverTask.CloseConnection();
             if (!succeded)
             {
                 MessageBox.Show("Failed to Sing Out properly.\nPlease check your connection.","Failure to close", MessageBoxButton.OK, MessageBoxImage.Error);
