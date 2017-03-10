@@ -214,5 +214,14 @@ namespace DatabaseHelper
                            where signed.username == username
                         select signed).Count() >= 1;
         }
+
+        public bool ValidateAdmin(string adminname, string password)
+        {
+            return linq_DB.Admins.Contains(new Admin
+            {
+                Adminname = adminname,
+                Password = password
+            });
+        }
     }
 }

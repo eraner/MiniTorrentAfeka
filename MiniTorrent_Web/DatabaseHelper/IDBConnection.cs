@@ -93,6 +93,19 @@ namespace DatabaseHelper
         /// <returns></returns>
         List<IpPort> GetFileIPs(string filename);
 
+        /// <summary>
+        /// Checking whether the Username is already singed in.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         bool IsAlreadySignedIn(string username);
+
+        /// <summary>
+        /// Checking the credentials of the admin details by adminname and password.
+        /// </summary>
+        /// <param name="adminname"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        bool ValidateAdmin(string adminname, string password);
     }
 }
