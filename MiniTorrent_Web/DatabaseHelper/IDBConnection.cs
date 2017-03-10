@@ -107,5 +107,13 @@ namespace DatabaseHelper
         /// <param name="password"></param>
         /// <returns></returns>
         bool ValidateAdmin(string adminname, string password);
+
+        /// <summary>
+        /// Removes a User from the Users table, by it's username. return true when succeeded, 
+        /// false when there aren't such user or more than one or failed to delete it.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        bool RemoveUser(string username);
     }
 }
