@@ -21,9 +21,12 @@ namespace MiniTorrent_GUI
         private FileDetails fileInfo;
         private ConnectionDetails connDetails;
         private DownloadingFileItem downloadingFileItem;
+        private TorrentWindow torrentWindow;
 
-        public ClientTask(List<IpPort> ipList, FileDetails fileInfo, ConnectionDetails connDetails, DownloadingFileItem downloadingFileItem)
+        public ClientTask(List<IpPort> ipList, FileDetails fileInfo, ConnectionDetails connDetails, DownloadingFileItem downloadingFileItem, TorrentWindow torrentWindow)
         {
+            this.torrentWindow = torrentWindow;
+
             bytesReceived = 0;
             numOfPeers = ipList.Count;
             totalSizeInBytes = (int)(fileInfo.Size * FilesHelper.ONE_MB);
@@ -71,6 +74,12 @@ namespace MiniTorrent_GUI
         {
             string path = connDetails.DownloadedFilesDestination + "\\" + fileInfo.Name;
             File.WriteAllBytes(path, fileBuffer);
+
+            downloadingFileItem.EndedTime = DateTime.Now;
+            TimeSpan totalTime = downloadingFileItem.EndedTime - downloadingFileItem.StartedTime;
+            float byteRate = (float)(totalSizeInBytes / totalTime.TotalSeconds);
+            torrentWindow.showMessageBox("Congrats! you've downloaded succesfully the file: \nFile Name: "+fileInfo.Name + " \nSize: " + fileInfo.Size
+                + "MB\nTotal Time: " + totalTime.TotalSeconds + " sec, \nDownload speed: " + byteRate + " byte/sec", "Downloading Succesful!!");
         }
     }
 }

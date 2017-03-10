@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Data;
 using MiniTorrent_MediationServerContract;
 using Newtonsoft.Json;
+using System.Threading;
 
 
 namespace MiniTorrent_GUI
@@ -17,6 +18,7 @@ namespace MiniTorrent_GUI
         public const string Failure = "Failure";
         public const string Notice = "Notice";
         public const string ServerMissingFiles = "ERROR:\nThe server couldn't find the file you are requsting.\nThe download will be canceled.";
+        public const long BufferSize = FilesHelper.ONE_KB * 32;
         #endregion
 
         private MediationReference.MediationServerContractClient client;
@@ -53,7 +55,23 @@ namespace MiniTorrent_GUI
 
         private void updateDownloadingFiles()
         {
+            downloadingFileSource.Source = null;
             downloadingFileSource.Source = downloadingFileList;
+            
+            
+
+            //List<DownloadingFileItem> list = new List<DownloadingFileItem>();
+            //list.Add(new DownloadingFileItem
+            //{
+            //    Percentage = 0,
+            //    Size = 20
+            //});
+            //downloadingFileSource.Source = list;
+            //for (int i = 0; i < 90; i++)
+            //{
+            //    list[0].Percentage++;
+            //    Thread.Sleep(600);
+            //}
         }
 
         private void updateAvailableFiles()
@@ -120,7 +138,7 @@ namespace MiniTorrent_GUI
                 Percentage = 0
             };
 
-            ClientTask download = new ClientTask(ipPortList, file, connectionDetails, downloadingFile);
+            ClientTask download = new ClientTask(ipPortList, file, connectionDetails, downloadingFile, this);
             downloadingFileList.Add(downloadingFile);
             updateDownloadingFiles();
             RequestFileLabel.Content = file.Name+ ", " + file.Size + " MB, started downloading.";
@@ -155,7 +173,7 @@ namespace MiniTorrent_GUI
 
         }
 
-        private MessageBoxResult showMessageBox(string msg, string title)
+        public MessageBoxResult showMessageBox(string msg, string title)
         {
             return MessageBox.Show(msg, title, MessageBoxButton.OKCancel);
         }
