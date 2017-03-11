@@ -17,6 +17,7 @@ namespace MiniTorrent_GUI
         #region Constants
         public const string Failure = "Failure";
         public const string Notice = "Notice";
+        public const string FileDownloadError = "File Download Error";
         public const string ServerMissingFiles = "ERROR:\nThe server couldn't find the file you are requsting.\nThe download will be canceled.";
         private const string ReflectionError = "Reflection Error";
         public const long BufferSize = FilesHelper.ONE_KB * 32;
@@ -121,11 +122,17 @@ namespace MiniTorrent_GUI
                 StartedTime = DateTime.Now,
                 Percentage = 0
             };
-
-            ClientTask download = new ClientTask(ipPortList, file, connectionDetails, downloadingFile, this);
-            downloadingFileList.Add(downloadingFile);
-            updateDownloadingFiles();
-            RequestFileLabel.Content = file.Name+ ", " + file.Size + " MB, started downloading.";
+            try
+            {
+                ClientTask download = new ClientTask(ipPortList, file, connectionDetails, downloadingFile, this);
+                downloadingFileList.Add(downloadingFile);
+                updateDownloadingFiles();
+                RequestFileLabel.Content = file.Name + ", " + file.Size + " MB, started downloading.";
+            }
+            catch(Exception ex)
+            {
+                showMessageBox(ex.Message, FileDownloadError);
+            }
         }
 
         private bool validateFileRequest(FileDetails file)

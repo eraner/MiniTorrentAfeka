@@ -44,6 +44,9 @@ namespace MiniTorrent_GUI
 
         private async void requestFromPeers(List<IpPort> ipList)
         {
+            if (numOfPeers == 0)
+                throw new ArgumentException("The number of peers are Zero.\nValidate our files info.");
+
             int bytesPerPeer = (int)(totalSizeInBytes / numOfPeers);
             int counterBytes = 0;
 
