@@ -194,8 +194,8 @@ namespace MiniTorrent_GUI
 
         private void ReflectAFile_Click(object sender, RoutedEventArgs e)
         {
-            DownloadingFileItem file = (DownloadingFileItem)AvailableFileDataGrid.SelectedItem;
-            string pathToDll = connectionDetails.DownloadedFilesDestination + file.Filename;
+            DownloadingFileItem file = (DownloadingFileItem)DownloadingFilesDatagrid.SelectedItem;
+            string pathToDll = connectionDetails.DownloadedFilesDestination + "\\"+ file.Filename;
             try
             {
                 ReflectionHelper.ReflectionHelper.StartReflection(pathToDll);
