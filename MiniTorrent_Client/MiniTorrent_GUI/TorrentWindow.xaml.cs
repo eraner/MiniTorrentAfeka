@@ -17,6 +17,7 @@ namespace MiniTorrent_GUI
         #region Constants
         public const string Failure = "Failure";
         public const string Notice = "Notice";
+        public const string FileDownloadError = "File Download Error";
         public const string ServerMissingFiles = "ERROR:\nThe server couldn't find the file you are requsting.\nThe download will be canceled.";
         public const string ReflectionError = "Reflection Error";
         public const string MissingSelectionError = "Please select a file from the downloading files panel.";
@@ -85,6 +86,11 @@ namespace MiniTorrent_GUI
 
         private void UpdateFilesButton_Click(object sender, RoutedEventArgs e)
         {
+            NotifyNewFiles();
+        }
+
+        public void NotifyNewFiles()
+        {
             sendMyFilesToDB();
             updateAvailableFiles();
         }
@@ -122,11 +128,17 @@ namespace MiniTorrent_GUI
                 StartedTime = DateTime.Now,
                 Percentage = 0
             };
-
-            ClientTask download = new ClientTask(ipPortList, file, connectionDetails, downloadingFile, this);
-            downloadingFileList.Add(downloadingFile);
-            updateDownloadingFiles();
-            RequestFileLabel.Content = file.Name+ ", " + file.Size + " MB, started downloading.";
+            try
+            {
+                ClientTask download = new ClientTask(ipPortList, file, connectionDetails, downloadingFile, this);
+                downloadingFileList.Insert(0, downloadingFile);
+                updateDownloadingFiles();
+                RequestFileLabel.Content = file.Name + ", " + file.Size + " MB, started downloading.";
+            }
+            catch(Exception ex)
+            {
+                showMessageBox(ex.Message, FileDownloadError);
+            }
         }
 
         private bool validateFileRequest(FileDetails file)
@@ -213,8 +225,7 @@ namespace MiniTorrent_GUI
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            sendMyFilesToDB();
-            updateAvailableFiles();
+            NotifyNewFiles();
 
             string searchText = SearchTextBox.Text;
             if (!string.IsNullOrEmpty(searchText))
@@ -232,8 +243,7 @@ namespace MiniTorrent_GUI
 
         private void CancelSearchButton_Click(object sender, RoutedEventArgs e)
         {
-            sendMyFilesToDB();
-            updateAvailableFiles();
+            NotifyNewFiles();
             SearchTextBox.Text = string.Empty;
             CancelSearchButton.Visibility = Visibility.Hidden;
         }
