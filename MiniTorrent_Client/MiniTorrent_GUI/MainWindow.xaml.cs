@@ -17,15 +17,15 @@ namespace MiniTorrent_GUI
     public partial class MainWindow : Window
     {
         #region Constants
-        public const string CONFIG_FILE_NAME = "MyConfig.xml";
-        public const string MINI_TORRENT_PARAMS = "MiniTorrentParams";
-        public const string SERVER_IP_ADDRESS = "ServerIpAddress";
-        public const string INCOMING_PORT = "IncomingTcpPort";
-        public const string OUTGOING_PORT = "OutgoingTcpPort";
-        public const string USERNAME = "Username";
-        public const string PASSWORD = "Password";
-        public const string SOURCE_DIR = "PublishedFilesSource";
-        public const string DEST_DIR = "DownloadedFilesDestination";
+        public const string ConfigFileName = "MyConfig.xml";
+        public const string MiniTorrentParams = "MiniTorrentParams";
+        public const string ServerIpAddress = "ServerIpAddress";
+        public const string IncomingPort = "IncomingTcpPort";
+        public const string OutgoingPort = "OutgoingTcpPort";
+        public const string Username = "Username";
+        public const string Password = "Password";
+        public const string SourceDir = "PublishedFilesSource";
+        public const string DestDir = "DownloadedFilesDestination";
         #endregion
 
         private MediationReference.MediationServerContractClient client;
@@ -35,28 +35,30 @@ namespace MiniTorrent_GUI
         public MainWindow()
         {
             InitializeComponent();
-            localIp = GetLocalIPAddress();
+            
         }
 
         private bool validateConfigFile()
         {
+            localIp = GetLocalIPAddress();
+
             if (connectionDetails == null)
             {
                 connectionDetails = new ConnectionDetails();
             }
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(CONFIG_FILE_NAME);
+            xDoc.Load(ConfigFileName);
 
             try
             {
-                XmlNode paramsNode = xDoc.SelectSingleNode("/"+ MINI_TORRENT_PARAMS);
-                connectionDetails.ServerIpAddress = paramsNode.SelectSingleNode(SERVER_IP_ADDRESS).InnerText;
-                connectionDetails.IncomingTcpPort = Convert.ToInt32(paramsNode.SelectSingleNode(INCOMING_PORT).InnerText);
-                connectionDetails.OutgoingTcpPort = Convert.ToInt32(paramsNode.SelectSingleNode(OUTGOING_PORT).InnerText);
-                connectionDetails.Username = paramsNode.SelectSingleNode(USERNAME).InnerText;
-                connectionDetails.Password = paramsNode.SelectSingleNode(PASSWORD).InnerText;
-                connectionDetails.PublishedFilesSource = paramsNode.SelectSingleNode(SOURCE_DIR).InnerText;
-                connectionDetails.DownloadedFilesDestination = paramsNode.SelectSingleNode(DEST_DIR).InnerText;
+                XmlNode paramsNode = xDoc.SelectSingleNode("/"+ MiniTorrentParams);
+                connectionDetails.ServerIpAddress = paramsNode.SelectSingleNode(ServerIpAddress).InnerText;
+                connectionDetails.IncomingTcpPort = Convert.ToInt32(paramsNode.SelectSingleNode(IncomingPort).InnerText);
+                connectionDetails.OutgoingTcpPort = Convert.ToInt32(paramsNode.SelectSingleNode(OutgoingPort).InnerText);
+                connectionDetails.Username = paramsNode.SelectSingleNode(Username).InnerText;
+                connectionDetails.Password = paramsNode.SelectSingleNode(Password).InnerText;
+                connectionDetails.PublishedFilesSource = paramsNode.SelectSingleNode(SourceDir).InnerText;
+                connectionDetails.DownloadedFilesDestination = paramsNode.SelectSingleNode(DestDir).InnerText;
             }
             catch
             {
@@ -124,18 +126,18 @@ namespace MiniTorrent_GUI
         private void updateConfigFile()
         {
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(CONFIG_FILE_NAME);
-            XmlNode paramsNode = xDoc.SelectSingleNode("/" + MINI_TORRENT_PARAMS);
+            xDoc.Load(ConfigFileName);
+            XmlNode paramsNode = xDoc.SelectSingleNode("/" + MiniTorrentParams);
 
-            paramsNode.SelectSingleNode(SERVER_IP_ADDRESS).InnerText = ServerIpAddressTextbox.Text;
-            paramsNode.SelectSingleNode(INCOMING_PORT).InnerText = IncomingTcpPortTextbox.Text;
-            paramsNode.SelectSingleNode(OUTGOING_PORT).InnerText = OutgoingTcpPortTextbox.Text;
-            paramsNode.SelectSingleNode(USERNAME).InnerText = UsernameTextbox.Text;
-            paramsNode.SelectSingleNode(PASSWORD).InnerText = PasswordTextbox.Password;
-            paramsNode.SelectSingleNode(SOURCE_DIR).InnerText = PublishedFilesSourceTextbox.Text;
-            paramsNode.SelectSingleNode(DEST_DIR).InnerText = DownloadedFilesDestTextbox.Text;
+            paramsNode.SelectSingleNode(ServerIpAddress).InnerText = ServerIpAddressTextbox.Text;
+            paramsNode.SelectSingleNode(IncomingPort).InnerText = IncomingTcpPortTextbox.Text;
+            paramsNode.SelectSingleNode(OutgoingPort).InnerText = OutgoingTcpPortTextbox.Text;
+            paramsNode.SelectSingleNode(Username).InnerText = UsernameTextbox.Text;
+            paramsNode.SelectSingleNode(Password).InnerText = PasswordTextbox.Password;
+            paramsNode.SelectSingleNode(SourceDir).InnerText = PublishedFilesSourceTextbox.Text;
+            paramsNode.SelectSingleNode(DestDir).InnerText = DownloadedFilesDestTextbox.Text;
 
-            xDoc.Save(CONFIG_FILE_NAME);
+            xDoc.Save(ConfigFileName);
         }
 
         private void checkBox_Changed(object sender, RoutedEventArgs e)
@@ -153,6 +155,11 @@ namespace MiniTorrent_GUI
 
         public string GetLocalIPAddress()
         {
+            if (IpCheckBox.IsChecked.Value)
+            {
+                return IPTextBox.Text;
+            }
+
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
             {
@@ -183,5 +190,12 @@ namespace MiniTorrent_GUI
             }
         }
 
+        private void IpCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (IpCheckBox.IsChecked.Value)
+                IPTextBox.Visibility = Visibility.Visible;
+            else
+                IPTextBox.Visibility = Visibility.Hidden;
+        }
     }
 }
