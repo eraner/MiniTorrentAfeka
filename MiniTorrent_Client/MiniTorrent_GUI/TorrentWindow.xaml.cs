@@ -18,7 +18,8 @@ namespace MiniTorrent_GUI
         public const string Failure = "Failure";
         public const string Notice = "Notice";
         public const string ServerMissingFiles = "ERROR:\nThe server couldn't find the file you are requsting.\nThe download will be canceled.";
-        private const string ReflectionError = "Reflection Error";
+        public const string ReflectionError = "Reflection Error";
+        public const string MissingSelectionError = "Please select a file from the downloading files panel.";
         public const long BufferSize = FilesHelper.ONE_KB * 32;
         #endregion
 
@@ -147,7 +148,7 @@ namespace MiniTorrent_GUI
             }
             FileDetails requestedFile = JsonConvert.DeserializeObject<FileDetails>(fileDetailsString);
             string msg = "Please be advise you are going to download the following file:\nFile Name: " +requestedFile.Name +".\nSize: " + requestedFile.Size +" MB.\n" +
-                "Number of Users:"+ requestedFile.Count +" .\n\nAre you sure you want to proceed?";
+                "Number of Users: "+ requestedFile.Count +" .\n\nAre you sure you want to proceed?";
             if (MessageBoxResult.Cancel ==  showMessageBox(msg, Notice))
             {
                 //User selected to cancel the download.
@@ -194,6 +195,11 @@ namespace MiniTorrent_GUI
         private void ReflectAFile_Click(object sender, RoutedEventArgs e)
         {
             DownloadingFileItem file = (DownloadingFileItem)DownloadingFilesDatagrid.SelectedItem;
+            if (file == null)
+            {
+                showMessageBox(MissingSelectionError, ReflectionError);
+                return;
+            }
             string pathToDll = connectionDetails.DownloadedFilesDestination + "\\"+ file.Filename;
             try
             {
