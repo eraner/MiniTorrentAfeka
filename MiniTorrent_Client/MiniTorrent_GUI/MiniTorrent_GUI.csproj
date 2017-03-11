@@ -130,7 +130,14 @@
     <None Include="Service References\MediationReference\service.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\MediationReference\service1.wsdl" />
     <None Include="Service References\MediationReference\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MediationReference\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MediationReference\service3.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

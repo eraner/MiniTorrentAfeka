@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MiniTorrent_GUI"
         mc:Ignorable="d"
-        Title="TorrentWindow" Height="300" Width="547.598" Closing="Window_Closing" MinWidth="1000" MinHeight="500" WindowStartupLocation="CenterOwner">
+        Title="TorrentWindow" Height="320" Width="547.598" Closing="Window_Closing" MinWidth="1000" MinHeight="500" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <CollectionViewSource x:Key="AvailableFileSource" CollectionViewType="ListCollectionView"/>
         <CollectionViewSource x:Key="DownloadingFileSource" CollectionViewType="ListCollectionView"/>
@@ -17,9 +17,8 @@
     </Window.BorderBrush>
 
     <Grid>
-        <DataGrid x:Name="AvailableFileDataGrid" AutoGenerateColumns="True" Margin="10,10,10,0" HorizontalAlignment="Stretch"  VerticalAlignment="Top" HorizontalContentAlignment="Stretch" MaxHeight="300
-                  "
-                  ColumnWidth="*" DataContext="{StaticResource AvailableFileSource}" ItemsSource="{Binding}" FontSize="16" SelectionMode="Single" VerticalScrollBarVisibility="Visible" IsReadOnly="True" >
+        <DataGrid x:Name="AvailableFileDataGrid" AutoGenerateColumns="True" Margin="10,10,10,0" HorizontalAlignment="Stretch"  VerticalAlignment="Top" HorizontalContentAlignment="Stretch" MaxHeight="290"
+                  ColumnWidth="*" DataContext="{StaticResource AvailableFileSource}" ItemsSource="{Binding}" FontSize="16" SelectionMode="Single" VerticalScrollBarVisibility="Visible" IsReadOnly="True" MinHeight="200" >
             <DataGrid.RowBackground>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionColorKey}}"/>
             </DataGrid.RowBackground>
@@ -41,11 +40,11 @@
         </Border>
         <Label x:Name="RequestFileLabel" Content="" HorizontalAlignment="Left" Margin="18,435,0,0" VerticalAlignment="Bottom"/>
 
-        <Border Margin="20" Padding="3" Background="GhostWhite" 
+        <Border Margin="5" Padding="3" Background="GhostWhite" 
           BorderBrush="SteelBlue" BorderThickness="1" CornerRadius="3" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-            <DataGrid x:Name="DownloadingFilesDatagrid" AutoGenerateColumns="False" Margin="10,10,10,10" HorizontalAlignment="Stretch" 
+            <DataGrid x:Name="DownloadingFilesDatagrid" AutoGenerateColumns="False" Margin="5" HorizontalAlignment="Stretch" 
                       VerticalAlignment="Top" HorizontalContentAlignment="Stretch" FontSize="16"  ColumnWidth="*" SelectionMode="Single" DataContext="{StaticResource DownloadingFileSource}" 
-                      ItemsSource="{Binding}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" MaxWidth="800" MaxHeight="300">
+                      ItemsSource="{Binding}" IsReadOnly="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" MaxWidth="800" Height="120">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="FileName" Binding="{Binding Path=Filename}" />
                     <DataGridTextColumn Header="FileSize" Binding="{Binding Path=Size}"/>

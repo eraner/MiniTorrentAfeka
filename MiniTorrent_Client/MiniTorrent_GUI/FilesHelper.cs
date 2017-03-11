@@ -31,12 +31,6 @@ namespace MiniTorrent_GUI
                     filesList.Add(curr);
             }
 
-            string[] subDirs = Directory.GetDirectories(source);
-            foreach (string dir in subDirs)
-            {
-                filesList.AddRange(getFilesList(dir));
-            }
-
             return filesList;
         }
 

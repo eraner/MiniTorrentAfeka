@@ -30,6 +30,8 @@
         <Button x:Name="DestinationButton" Content="..." HorizontalAlignment="Left" VerticalAlignment="Top" Width="20" Grid.Column="1" Margin="251.2,217,0,0" Height="20" Click="DestinationButton_Click" RenderTransformOrigin="0.43,2.8"/>
         
         <CheckBox x:Name="PreDefinedConfigCheckBox" Content="Use Pre-Defined MyConfig.xml file" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Checked="checkBox_Changed" Unchecked="checkBox_Changed"/>
+        <CheckBox x:Name="IpCheckBox" Content="Insert IP manually" HorizontalAlignment="Left" FontSize="18.667" Margin="10,250,0,0" VerticalAlignment="Top" Checked="IpCheckBox_Checked" Unchecked="IpCheckBox_Checked" />
+        <TextBox x:Name="IPTextBox" HorizontalAlignment="Left" Height="23" Margin="0,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" RenderTransformOrigin="0.061,0.214" FontSize="18.667" Grid.Column="1" Visibility="Hidden" TextAlignment="Center"/>
 
     </Grid>
 </Window>

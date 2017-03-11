@@ -57,21 +57,6 @@ namespace MiniTorrent_GUI
         {
             downloadingFileSource.Source = null;
             downloadingFileSource.Source = downloadingFileList;
-            
-            
-
-            //List<DownloadingFileItem> list = new List<DownloadingFileItem>();
-            //list.Add(new DownloadingFileItem
-            //{
-            //    Percentage = 0,
-            //    Size = 20
-            //});
-            //downloadingFileSource.Source = list;
-            //for (int i = 0; i < 90; i++)
-            //{
-            //    list[0].Percentage++;
-            //    Thread.Sleep(600);
-            //}
         }
 
         private void updateAvailableFiles()
