@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MediationService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8089/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8089/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMediationServerContract_SingIn_InputMessage">
+    <wsdl:part name="parameters" element="tns:SingIn" />
+  </wsdl:message>
+  <wsdl:message name="IMediationServerContract_SingIn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SingInResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMediationServerContract_Authenticate_InputMessage">
+    <wsdl:part name="parameters" element="tns:Authenticate" />
+  </wsdl:message>
+  <wsdl:message name="IMediationServerContract_Authenticate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AuthenticateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMediationServerContract_RequestAFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:RequestAFile" />
+  </wsdl:message>
+  <wsdl:message name="IMediationServerContract_RequestAFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RequestAFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMediationServerContract_SignOut_InputMessage">
+    <wsdl:part name="parameters" element="tns:SignOut" />
+  </wsdl:message>
+  <wsdl:message name="IMediationServerContract_SignOut_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SignOutResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMediationServerContract_GetAvailableFiles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableFiles" />
+  </wsdl:message>
+  <wsdl:message name="IMediationServerContract_GetAvailableFiles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvailableFilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMediationServerContract_GetIpListForAFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIpListForAFile" />
+  </wsdl:message>
+  <wsdl:message name="IMediationServerContract_GetIpListForAFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIpListForAFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMediationServerContract_UpdateUserFiles_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserFiles" />
+  </wsdl:message>
+  <wsdl:message name="IMediationServerContract_UpdateUserFiles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserFilesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMediationServerContract">
+    <wsdl:operation name="SingIn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMediationServerContract/SingIn" message="tns:IMediationServerContract_SingIn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMediationServerContract/SingInResponse" message="tns:IMediationServerContract_SingIn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Authenticate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMediationServerContract/Authenticate" message="tns:IMediationServerContract_Authenticate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMediationServerContract/AuthenticateResponse" message="tns:IMediationServerContract_Authenticate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RequestAFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMediationServerContract/RequestAFile" message="tns:IMediationServerContract_RequestAFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMediationServerContract/RequestAFileResponse" message="tns:IMediationServerContract_RequestAFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SignOut">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMediationServerContract/SignOut" message="tns:IMediationServerContract_SignOut_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMediationServerContract/SignOutResponse" message="tns:IMediationServerContract_SignOut_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableFiles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMediationServerContract/GetAvailableFiles" message="tns:IMediationServerContract_GetAvailableFiles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMediationServerContract/GetAvailableFilesResponse" message="tns:IMediationServerContract_GetAvailableFiles_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIpListForAFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMediationServerContract/GetIpListForAFile" message="tns:IMediationServerContract_GetIpListForAFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMediationServerContract/GetIpListForAFileResponse" message="tns:IMediationServerContract_GetIpListForAFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserFiles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMediationServerContract/UpdateUserFiles" message="tns:IMediationServerContract_UpdateUserFiles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMediationServerContract/UpdateUserFilesResponse" message="tns:IMediationServerContract_UpdateUserFiles_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IMediationServerContract" type="tns:IMediationServerContract">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SingIn">
+      <soap:operation soapAction="http://tempuri.org/IMediationServerContract/SingIn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Authenticate">
+      <soap:operation soapAction="http://tempuri.org/IMediationServerContract/Authenticate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RequestAFile">
+      <soap:operation soapAction="http://tempuri.org/IMediationServerContract/RequestAFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SignOut">
+      <soap:operation soapAction="http://tempuri.org/IMediationServerContract/SignOut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAvailableFiles">
+      <soap:operation soapAction="http://tempuri.org/IMediationServerContract/GetAvailableFiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIpListForAFile">
+      <soap:operation soapAction="http://tempuri.org/IMediationServerContract/GetIpListForAFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserFiles">
+      <soap:operation soapAction="http://tempuri.org/IMediationServerContract/UpdateUserFiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MediationService">
+    <wsdl:port name="BasicHttpBinding_IMediationServerContract" binding="tns:BasicHttpBinding_IMediationServerContract">
+      <soap:address location="http://localhost:8089/MediationService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

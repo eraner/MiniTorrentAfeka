@@ -26,9 +26,9 @@ namespace DatabaseHelper.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=D:\\VisualStudioProjects\\Mini_" +
-            "Torrent\\MiniTorrent_Web\\DatabaseHelper\\MiniTorrent_DB.mdf;Integrated Security=Tr" +
-            "ue")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=G:\\הנדסת תוכנה\\שנה ג\'\\סמסטר א" +
+            "\'\\C#\\MiniTorrent\\MiniTorrent_Web\\DatabaseHelper\\MiniTorrent_DB.mdf;Integrated Se" +
+            "curity=True")]
         public string MiniTorrent_DBConnectionString {
             get {
                 return ((string)(this["MiniTorrent_DBConnectionString"]));
