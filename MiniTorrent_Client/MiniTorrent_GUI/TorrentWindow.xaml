@@ -36,6 +36,7 @@
             <StackPanel x:Name="ButtonsStackPanel" >
                 <Button x:Name="UpdateFilesButton" Margin="5" Click="UpdateFilesButton_Click" FontSize="16" Content="Update Files"/>
                 <Button x:Name="RequestAFileButton" Margin="5" Content="Request a file" Click="RequestAFileButton_Click" FontSize="16"/>
+                <Button x:Name="ReflectAFile" Margin="5" Content="Reflect a DLL" Click="ReflectAFile_Click" FontSize ="16"/>
             </StackPanel>
         </Border>
         <Label x:Name="RequestFileLabel" Content="" HorizontalAlignment="Left" Margin="18,435,0,0" VerticalAlignment="Bottom"/>

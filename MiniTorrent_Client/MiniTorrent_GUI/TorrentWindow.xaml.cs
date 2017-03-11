@@ -18,6 +18,7 @@ namespace MiniTorrent_GUI
         public const string Failure = "Failure";
         public const string Notice = "Notice";
         public const string ServerMissingFiles = "ERROR:\nThe server couldn't find the file you are requsting.\nThe download will be canceled.";
+        private const string ReflectionError = "Reflection Error";
         public const long BufferSize = FilesHelper.ONE_KB * 32;
         #endregion
 
@@ -31,7 +32,6 @@ namespace MiniTorrent_GUI
         private List<FileDetails> ownedFilesList;
         private List<FileDetails> downloadedFilesList;
         private ServerTask serverTask;
-
 
         public TorrentWindow(MediationReference.MediationServerContractClient client, ConnectionDetails details, string localIP)
         {
@@ -147,7 +147,7 @@ namespace MiniTorrent_GUI
                 return false;
             }
             FileDetails requestedFile = JsonConvert.DeserializeObject<FileDetails>(fileDetailsString);
-            string msg = "Please be advise you are going to download the following file:\nFile Name: " +requestedFile.Name +".\nSize: {requestedFile.Size} MB.\n" +
+            string msg = "Please be advise you are going to download the following file:\nFile Name: " +requestedFile.Name +".\nSize: " + requestedFile.Size +" MB.\n" +
                 "Number of Users:"+ requestedFile.Count +" .\n\nAre you sure you want to proceed?";
             if (MessageBoxResult.Cancel ==  showMessageBox(msg, Notice))
             {
@@ -190,6 +190,20 @@ namespace MiniTorrent_GUI
         {
             FileDetails file = (FileDetails)AvailableFileDataGrid.SelectedItem;
             requestAFile(file.Name);
+        }
+
+        private void ReflectAFile_Click(object sender, RoutedEventArgs e)
+        {
+            DownloadingFileItem file = (DownloadingFileItem)AvailableFileDataGrid.SelectedItem;
+            string pathToDll = connectionDetails.DownloadedFilesDestination + file.Filename;
+            try
+            {
+                ReflectionHelper.ReflectionHelper.StartReflection(pathToDll);
+            }
+            catch(Exception ex)
+            {
+                showMessageBox(ex.Message, ReflectionError);
+            }
         }
     }
 }

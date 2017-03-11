@@ -70,6 +70,7 @@
     <Compile Include="FileTransfer\Downloader.cs" />
     <Compile Include="FileTransfer\ServerTask.cs" />
     <Compile Include="FileTransfer\Uploader.cs" />
+    <Compile Include="ReflectionHelper\ReflectionHelper.cs" />
     <Compile Include="Service References\MediationReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -135,7 +136,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -166,6 +169,7 @@
       <Name>MiniTorrent_MediationServerContract</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
