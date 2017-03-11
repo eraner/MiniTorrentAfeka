@@ -162,6 +162,7 @@
     <Content Include="MyConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\AppBack.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MiniTorrent_Web\MiniTorrent_MediationServerContract\MiniTorrent_MediationServerContract.csproj">

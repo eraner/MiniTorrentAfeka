@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MiniTorrent_GUI
 {
@@ -14,9 +11,11 @@ namespace MiniTorrent_GUI
     {
         private TcpClient clientSocket;
         private ConnectionDetails connDetails;
+        private TorrentWindow torrentWindow;
 
-        public Uploader(TcpClient client, ConnectionDetails conn)
+        public Uploader(TcpClient client, ConnectionDetails conn, TorrentWindow torrentWindow)
         {
+            this.torrentWindow = torrentWindow;
             clientSocket = client;
             connDetails = conn;
             Thread thread = new Thread(startNewClient);
@@ -32,9 +31,9 @@ namespace MiniTorrent_GUI
             stream.Read(buffer, 0, buffer.Length);
             
             string jsonString = Encoding.ASCII.GetString(buffer);
-            //int pos = jsonString.IndexOf('}');
-            //jsonString = jsonString.Substring(0, pos+1);
             FileDataContract fileDetails = JsonConvert.DeserializeObject<FileDataContract>(jsonString);
+            string targetIp = ((IPEndPoint)clientSocket.Client.RemoteEndPoint).Address.ToString();
+            torrentWindow.ShowLabelMsg("Uploading file: " + fileDetails.Filename + ", to: " + targetIp);
             uploadFile(stream, fileDetails);
         }
 

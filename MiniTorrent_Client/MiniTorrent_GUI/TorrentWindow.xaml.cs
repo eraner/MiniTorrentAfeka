@@ -51,7 +51,7 @@ namespace MiniTorrent_GUI
             downloadingFileSource.Source = downloadingFileList;
             updateDownloadingFiles();
 
-            serverTask = new ServerTask(connectionDetails, localIP);
+            serverTask = new ServerTask(connectionDetails, localIP, this);
         }
 
         private void updateDownloadingFiles()
@@ -75,13 +75,9 @@ namespace MiniTorrent_GUI
                 Password = connectionDetails.Password,
                 Ip = localIP
             };
-            bool succeded = client.SignOut(JsonConvert.SerializeObject(json));
-           // serverTask.CloseConnection();
-            if (!succeded)
-            {
-                MessageBox.Show("Failed to Sing Out properly.\nPlease check your connection.","Failure to close", MessageBoxButton.OK, MessageBoxImage.Error);
-                e.Cancel = true;
-            }
+
+            client.SignOut(JsonConvert.SerializeObject(json));
+            serverTask.CloseConnection();
         }
 
         private void UpdateFilesButton_Click(object sender, RoutedEventArgs e)
@@ -91,8 +87,12 @@ namespace MiniTorrent_GUI
 
         public void NotifyNewFiles()
         {
-            sendMyFilesToDB();
-            updateAvailableFiles();
+            Application.Current.Dispatcher.BeginInvoke((ThreadStart)delegate
+            {
+                sendMyFilesToDB();
+                updateAvailableFiles();
+            });
+            
         }
 
         private void sendMyFilesToDB()
@@ -168,6 +168,14 @@ namespace MiniTorrent_GUI
             }
             return true;
 
+        }
+
+        public void ShowLabelMsg(string msg)
+        {
+            Application.Current.Dispatcher.BeginInvoke((ThreadStart)delegate
+            {
+                RequestFileLabel.Content = msg;
+            });
         }
 
         public MessageBoxResult showMessageBox(string msg, string title)

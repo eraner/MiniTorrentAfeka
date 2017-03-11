@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 using MiniTorrent_MediationServerContract;
 using System.Threading;
 using Newtonsoft.Json;
@@ -84,9 +80,6 @@ namespace MiniTorrent_GUI
             lock (locker)
             {
                 downloadingFileItem.Percentage += (double)((double)count / (double)dataContract.TotalFileSizeInBytes)*100;
-                //if (downloadingFileItem.Percentage >= 100)
-                //    return;
-                //downloadingFileItem.Percentage += 1;
             }
         }
 

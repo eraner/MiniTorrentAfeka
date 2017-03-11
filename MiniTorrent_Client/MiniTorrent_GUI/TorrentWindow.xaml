@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MiniTorrent_GUI"
         mc:Ignorable="d"
-        Title="TorrentWindow" Height="320" Width="547.598" Closing="Window_Closing" MinWidth="1000" MinHeight="500" WindowStartupLocation="CenterOwner">
+        Title="TorrentWindow" Height="600" Width="700" Closing="Window_Closing" MinWidth="1000" MinHeight="500" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <CollectionViewSource x:Key="AvailableFileSource" CollectionViewType="ListCollectionView"/>
         <CollectionViewSource x:Key="DownloadingFileSource" CollectionViewType="ListCollectionView"/>
@@ -17,6 +17,9 @@
     </Window.BorderBrush>
 
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resources/AppBack.jpg"/>
+        </Grid.Background>
         <TextBox x:Name="SearchTextBox" HorizontalAlignment="Left" Height="23" Margin="10,2,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Margin="135,2,0,0" VerticalAlignment="Top" Width="50" Height="23" Click="SearchButton_Click"/>
         <Button x:Name="CancelSearchButton" Content="X" HorizontalAlignment="Left" Margin="190,2,0,0" VerticalAlignment="Top" Width="23" Height="23" Click="CancelSearchButton_Click" Visibility="Hidden"/>
@@ -34,7 +37,7 @@
             </DataGrid.ColumnHeaderStyle>
         </DataGrid>
 
-        <Border Margin="5" Padding="5" Background="GhostWhite" 
+        <Border Margin="10,10,10,30" Padding="5" Background="GhostWhite" 
           BorderBrush="SteelBlue" BorderThickness="1" CornerRadius="3" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <StackPanel x:Name="ButtonsStackPanel" >
                 <Button x:Name="UpdateFilesButton" Margin="5" Click="UpdateFilesButton_Click" FontSize="16" Content="Update Files"/>
@@ -42,9 +45,9 @@
                 <Button x:Name="ReflectAFile" Margin="5" Content="Reflect a DLL" Click="ReflectAFile_Click" FontSize ="16"/>
             </StackPanel>
         </Border>
-        <Label x:Name="RequestFileLabel" Content="" HorizontalAlignment="Left" Margin="18,435,0,0" VerticalAlignment="Bottom"/>
+        <Label x:Name="RequestFileLabel" Content="" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Bottom" Foreground="Red" />
 
-        <Border Margin="5" Padding="3" Background="GhostWhite" 
+        <Border Margin="10,10,10,30" Padding="3" Background="GhostWhite" 
           BorderBrush="SteelBlue" BorderThickness="1" CornerRadius="3" VerticalAlignment="Bottom" HorizontalAlignment="Left">
             <DataGrid x:Name="DownloadingFilesDatagrid" AutoGenerateColumns="False" Margin="5" HorizontalAlignment="Stretch" 
                       VerticalAlignment="Top" HorizontalContentAlignment="Stretch" FontSize="16"  ColumnWidth="*" SelectionMode="Single" DataContext="{StaticResource DownloadingFileSource}" 

@@ -25,7 +25,7 @@
             <asp:Label ID="PasswordLabel" runat="server" Text="Password: "></asp:Label>
                 </asp:TableCell>
                 <asp:TableCell>
-        <asp:TextBox ID="PasswordTextBox" runat="server"></asp:TextBox>
+        <asp:TextBox ID="PasswordTextBox" runat="server" TextMode="Password"></asp:TextBox>
                 </asp:TableCell>
             </asp:TableRow>
         

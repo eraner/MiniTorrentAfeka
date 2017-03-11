@@ -27,7 +27,7 @@
             <asp:Label ID="PasswordLabel" runat="server" Text="Password: "></asp:Label>
                 </asp:TableCell>
                 <asp:TableCell>
-        <asp:TextBox ID="PasswordTextBox" runat="server"></asp:TextBox>
+        <asp:TextBox ID="PasswordTextBox" runat="server" TextMode="Password"></asp:TextBox>
                 </asp:TableCell>
                 <asp:TableCell>
         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="PasswordTextBox" ErrorMessage="Password should contain minimum 6 characters, at least one letter and one number " ValidationExpression="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,15}$"></asp:RegularExpressionValidator>
@@ -40,7 +40,7 @@
             <asp:Label ID="ConfirmPasswordLabel" runat="server" Text="Confirm Password: "></asp:Label>
                 </asp:TableCell>
                 <asp:TableCell>
-        <asp:TextBox ID="ConfirmPasswordTextBox" runat="server" />
+        <asp:TextBox ID="ConfirmPasswordTextBox" runat="server" TextMode="Password"/>
                 </asp:TableCell><asp:TableCell>
         <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="Passwords fields do not match." Font-Italic="False" ControlToCompare="PasswordTextBox" ControlToValidate="ConfirmPasswordTextBox"></asp:CompareValidator>
                 </asp:TableCell></asp:TableRow></asp:Table><br />
@@ -48,7 +48,8 @@
         <br />
         <asp:Button ID="SubmitButton" runat="server" Text="Submit" OnClick="SubmitButton_Click"/>
         <br />
-        <asp:Label ID="InternalErrorLabel" runat="server" Font-Bold="True" ForeColor="Red"></asp:Label><br /><br /><asp:Button ID="AdminButton" runat="server" OnClick="AdminButton_Click" Text="Admin Login" /><br />
+        <asp:Label ID="InternalErrorLabel" runat="server" Font-Bold="True" ForeColor="Red"></asp:Label><br /><br />
+        <asp:HyperLink ID="AdminLoginLink" runat="server" NavigateUrl="~/AdminLogin.aspx">Admin Login</asp:HyperLink><br />
         
     
     </div>

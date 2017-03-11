@@ -21,11 +21,12 @@ namespace MiniTorrent_RegistrationWeb
             string adminName = AdminNameTextBox.Text;
             string password = PasswordTextBox.Text;
 
-           // if (!helper.ValidateAdmin(adminName, password))
+            if (!helper.ValidateAdmin(adminName, password))
             {
                 ErrorMsg.Text = "Wrong username or password!";
                 return;
             }
+            Response.Redirect("AdminPage.aspx");
 
         }
     }

@@ -11,15 +11,37 @@ namespace MiniTorrent_RegistrationWeb
 {
     public partial class AdminPage : System.Web.UI.Page
     {
+        DBHelper db;
+        List<string> usernameList;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //DBHelper db = new DBHelper();
+            db = new DBHelper();
 
-            //List<string> usernameList = db.GetUsernameValues();
-            //DataSet ds = new DataSet();
-            //UserTable.DataSource = usernameList;
-            UserTable.DataSource = new int[]{1,2,3};
+            usernameList = db.GetUsernameValues();
+            UserTable.DataSource = usernameList;
+
+          //  UserTable.Columns[1].HeaderText = "Users";
             UserTable.DataBind();
+
+        }
+
+        protected void RemoveButton_Click(object sender, EventArgs e)
+        {
+            if (usernameList.Count == 0)
+                return;
+            string usernameToDelete = UserTable.SelectedRow.Cells[1].Text;
+            db.RemoveUser(usernameToDelete);
+            usernameList.Remove(usernameToDelete);
+            UserTable.DataBind();
+            UserTable.SelectRow(-1);
+        }
+
+        protected void UserTable_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if(e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[1].Text = "Users";
+            }
         }
     }
 }
