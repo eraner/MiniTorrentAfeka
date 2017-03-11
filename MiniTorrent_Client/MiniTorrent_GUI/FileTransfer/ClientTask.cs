@@ -89,6 +89,7 @@ namespace MiniTorrent_GUI
             downloadingFileItem.EndedTime = DateTime.Now;
             TimeSpan totalTime = downloadingFileItem.EndedTime - downloadingFileItem.StartedTime;
             float byteRate = (float)(totalSizeInBytes / totalTime.TotalSeconds);
+            torrentWindow.NotifyNewFiles();
             torrentWindow.showMessageBox("Congrats! you've downloaded succesfully the file: \nFile Name: "+fileInfo.Name + " \nSize: " + fileInfo.Size
                 + "MB\nTotal Time: " + totalTime.TotalSeconds + " sec, \nDownload speed: " + byteRate + " byte/sec", "Downloading Succesful!!");
         }

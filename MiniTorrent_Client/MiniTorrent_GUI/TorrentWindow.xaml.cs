@@ -85,6 +85,11 @@ namespace MiniTorrent_GUI
 
         private void UpdateFilesButton_Click(object sender, RoutedEventArgs e)
         {
+            NotifyNewFiles();
+        }
+
+        public void NotifyNewFiles()
+        {
             sendMyFilesToDB();
             updateAvailableFiles();
         }
@@ -125,7 +130,7 @@ namespace MiniTorrent_GUI
             try
             {
                 ClientTask download = new ClientTask(ipPortList, file, connectionDetails, downloadingFile, this);
-                downloadingFileList.Add(downloadingFile);
+                downloadingFileList.Insert(0, downloadingFile);
                 updateDownloadingFiles();
                 RequestFileLabel.Content = file.Name + ", " + file.Size + " MB, started downloading.";
             }
@@ -214,8 +219,7 @@ namespace MiniTorrent_GUI
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            sendMyFilesToDB();
-            updateAvailableFiles();
+            NotifyNewFiles();
 
             string searchText = SearchTextBox.Text;
             if (!string.IsNullOrEmpty(searchText))
@@ -233,8 +237,7 @@ namespace MiniTorrent_GUI
 
         private void CancelSearchButton_Click(object sender, RoutedEventArgs e)
         {
-            sendMyFilesToDB();
-            updateAvailableFiles();
+            NotifyNewFiles();
             SearchTextBox.Text = string.Empty;
             CancelSearchButton.Visibility = Visibility.Hidden;
         }
