@@ -17,7 +17,10 @@
     </Window.BorderBrush>
 
     <Grid>
-        <DataGrid x:Name="AvailableFileDataGrid" AutoGenerateColumns="True" Margin="10,10,10,0" HorizontalAlignment="Stretch"  VerticalAlignment="Top" HorizontalContentAlignment="Stretch" MaxHeight="290"
+        <TextBox x:Name="SearchTextBox" HorizontalAlignment="Left" Height="23" Margin="10,2,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="SearchButton" Content="Search" HorizontalAlignment="Left" Margin="135,2,0,0" VerticalAlignment="Top" Width="50" Height="23" Click="SearchButton_Click"/>
+        <Button x:Name="CancelSearchButton" Content="X" HorizontalAlignment="Left" Margin="190,2,0,0" VerticalAlignment="Top" Width="23" Height="23" Click="CancelSearchButton_Click" Visibility="Hidden"/>
+        <DataGrid x:Name="AvailableFileDataGrid" AutoGenerateColumns="True" Margin="10,30,10,0" HorizontalAlignment="Stretch"  VerticalAlignment="Top" HorizontalContentAlignment="Stretch" MaxHeight="290"
                   ColumnWidth="*" DataContext="{StaticResource AvailableFileSource}" ItemsSource="{Binding}" FontSize="16" SelectionMode="Single" VerticalScrollBarVisibility="Visible" IsReadOnly="True" MinHeight="200" >
             <DataGrid.RowBackground>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionColorKey}}"/>
@@ -64,7 +67,7 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
-        
+
     </Grid>
 
     

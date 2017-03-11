@@ -41,7 +41,6 @@ namespace MiniTorrent_GUI
             connectionDetails = details;
             this.localIP = localIP;
 
-            
             availableFileSource = (CollectionViewSource)(FindResource("AvailableFileSource"));
             availableFileSource.Source = availableFiles;
             updateAvailableFiles();
@@ -204,6 +203,33 @@ namespace MiniTorrent_GUI
             {
                 showMessageBox(ex.Message, ReflectionError);
             }
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            sendMyFilesToDB();
+            updateAvailableFiles();
+
+            string searchText = SearchTextBox.Text;
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                availableFiles = availableFiles.FindAll(f => f.Name.Contains(searchText));
+
+                CancelSearchButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                CancelSearchButton.Visibility = Visibility.Hidden;
+            }
+            availableFileSource.Source = availableFiles;
+        }
+
+        private void CancelSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            sendMyFilesToDB();
+            updateAvailableFiles();
+            SearchTextBox.Text = string.Empty;
+            CancelSearchButton.Visibility = Visibility.Hidden;
         }
     }
 }
