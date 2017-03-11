@@ -115,5 +115,11 @@ namespace DatabaseHelper
         /// <param name="username"></param>
         /// <returns></returns>
         bool RemoveUser(string username);
+
+        /// <summary>
+        /// gets number of users signed in.
+        /// </summary>
+        /// <returns></returns>
+        int GetSignedInNumber();
     }
 }

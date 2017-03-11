@@ -152,6 +152,10 @@
       <Project>{d777b6e3-1b4b-4be5-ad21-61945a3c88e5}</Project>
       <Name>DatabaseHelper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MiniTorrent_MediationServerContract\MiniTorrent_MediationServerContract.csproj">
+      <Project>{324ab4af-cda0-4477-8428-e378902d2045}</Project>
+      <Name>MiniTorrent_MediationServerContract</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

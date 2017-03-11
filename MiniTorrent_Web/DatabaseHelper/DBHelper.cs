@@ -244,5 +244,10 @@ namespace DatabaseHelper
 
             return true;
         }
+
+        public int GetSignedInNumber()
+        {
+            return linq_DB.Signins.Count();
+        }
     }
 }
