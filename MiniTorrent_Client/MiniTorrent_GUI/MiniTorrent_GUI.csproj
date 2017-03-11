@@ -119,13 +119,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\MediationReference\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\MediationReference\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\MediationReference\MediationService.wsdl" />
     <None Include="Service References\MediationReference\service.wsdl" />
     <None Include="Service References\MediationReference\service.xsd">
       <SubType>Designer</SubType>
@@ -166,7 +159,6 @@
     <Content Include="MyConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Service References\MediationReference\item.disco" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MiniTorrent_Web\MiniTorrent_MediationServerContract\MiniTorrent_MediationServerContract.csproj">
