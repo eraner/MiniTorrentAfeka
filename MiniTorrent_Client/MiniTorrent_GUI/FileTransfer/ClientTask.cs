@@ -27,6 +27,8 @@ namespace MiniTorrent_GUI
         {
             this.torrentWindow = torrentWindow;
 
+
+
             bytesReceived = 0;
             numOfPeers = ipList.Count;
             totalSizeInBytes = (int)(fileInfo.Size * FilesHelper.ONE_MB);
